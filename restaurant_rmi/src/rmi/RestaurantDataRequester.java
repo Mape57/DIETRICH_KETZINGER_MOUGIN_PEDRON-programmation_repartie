@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class RestaurantDataRequester implements DataRequester {
+public class RestaurantDataRequester implements RestaurantDataRequesterInterface {
 	@Override
 	public String getAllRestaurantPosition() throws RemoteException {
 		List<Restaurant> restaurants = null;
