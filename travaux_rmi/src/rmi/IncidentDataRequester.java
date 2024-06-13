@@ -4,8 +4,6 @@ import data_access_method.FetchingMethod;
 import data_access_method.ProxyMethod;
 
 import java.io.IOException;
-import java.net.http.HttpConnectTimeoutException;
-import java.rmi.RemoteException;
 
 public class IncidentDataRequester implements IncidentDataRequesterInterface {
 	@Override

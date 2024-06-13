@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ProxySelector;
 import java.net.http.HttpClient;
-import java.net.http.HttpConnectTimeoutException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.URI;
@@ -29,7 +28,7 @@ public class ProxyMethod implements AccessMethod {
 				.build();
 
 		// envoie la requête et récupère la réponse
-		HttpResponse<String> response = null;
+		HttpResponse<String> response;
 		try {
 			response = client.send(request, HttpResponse.BodyHandlers.ofString());
 		} catch (InterruptedException e) {
