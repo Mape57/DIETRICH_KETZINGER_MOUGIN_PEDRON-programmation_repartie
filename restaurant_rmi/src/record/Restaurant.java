@@ -1,13 +1,19 @@
 package record;
 
 import database.RestaurantDB;
+import org.json.JSONObject;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Restaurant {
 	private int idResto;
@@ -40,6 +46,24 @@ public class Restaurant {
 		return restaurants;
 	}
 
+	public static List<LocalDateTime> getReservationPossible(int idResto, int nbConviv, LocalDate date) throws SQLException {
+		List<Horaire> horaires = Horaire.getHoraire(idResto, date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE));
+
+		List<LocalDateTime> heures = new ArrayList<>();
+
+		for (Horaire horaire : horaires) {
+			int heureDebut = horaire.getHeureOuverture();
+			int heureFin = horaire.getHeureFermeture();
+			while (heureDebut < heureFin) {
+				LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(heureDebut, 0));
+				if (Table.getTableLibreFromRestaurant(idResto, nbConviv, dateTime) != null) heures.add(dateTime);
+				heureDebut += Reservation.DUREE_RESERVATION;
+			}
+		}
+
+		return heures;
+	}
+
 	public static Restaurant getById(int idResto) throws SQLException {
 		Connection connection = RestaurantDB.getConnection();
 		Statement rs = connection.createStatement();
@@ -50,7 +74,7 @@ public class Restaurant {
 	}
 
 	public int getIdResto() {
-		return idResto;
+		return this.idResto;
 	}
 
 	public String getNomResto() {
@@ -67,5 +91,15 @@ public class Restaurant {
 
 	public int getNote() {
 		return this.note;
+	}
+
+	public JSONObject toJSON() {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("idResto", this.idResto);
+		jsonObject.put("nomResto", this.nomResto);
+		jsonObject.put("adr", this.adr);
+		jsonObject.put("coordonnees", this.coordonnees);
+		jsonObject.put("note", this.note);
+		return jsonObject;
 	}
 }

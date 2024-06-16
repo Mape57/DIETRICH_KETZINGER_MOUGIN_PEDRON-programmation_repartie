@@ -17,6 +17,6 @@ public class ServeurRestaurant {
 		Registry registry = LocateRegistry.getRegistry();
 		registry.rebind("restaurant", dr);
 
-		System.out.println("Serveur RMI lancé.");
+		System.out.println("Serveur RMI lancé.\n");
 	}
 }
