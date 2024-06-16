@@ -8,7 +8,6 @@ import record.Table;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;

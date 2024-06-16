@@ -25,6 +25,11 @@ public class RestaurantDB {
 		}
 	}
 
+	public synchronized static Connection getConnection() {
+		if (connection == null) new RestaurantDB();
+		return connection;
+	}
+
 	private Properties getProperty() {
 		Properties prop = new Properties();
 		String fileName = "resources/.conf";
@@ -37,10 +42,5 @@ public class RestaurantDB {
 			e.printStackTrace();
 		}
 		return prop;
-	}
-
-	public synchronized static Connection getConnection() {
-		if (connection == null) new RestaurantDB();
-		return connection;
 	}
 }

@@ -1,6 +1,7 @@
 package serveur;
 
 import com.sun.net.httpserver.HttpServer;
+import handler.restaurant.GetReservationPossible;
 import handler.restaurant.GetRestaurantById;
 import handler.restaurant.GetRestaurantLocations;
 import handler.travaux.GetTravaux;
@@ -24,19 +25,20 @@ public class ServeurCentral {
 		try {
 			setupRestaurant();
 		} catch (RemoteException | NotBoundException e) {
-			System.out.println("Erreur lors de la récupération du RMI restaurant");
+			System.out.println("Erreur lors de la récupération du RMI restaurant\n");
 		}
 
 		try {
 			setupIncident();
 		} catch (RemoteException | NotBoundException e) {
-			System.out.println("Erreur lors de la récupération du RMI travaux");
+			System.out.println("Erreur lors de la récupération du RMI travaux\n");
 		}
 
 		System.out.println("Création du serveur HTTP");
-		HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+		HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 		server.createContext("/restaurants", new GetRestaurantLocations());
 		server.createContext("/restaurants/", new GetRestaurantById());
+		server.createContext("/reservation", new GetReservationPossible());
 		server.createContext("/travaux", new GetTravaux());
 		server.start();
 

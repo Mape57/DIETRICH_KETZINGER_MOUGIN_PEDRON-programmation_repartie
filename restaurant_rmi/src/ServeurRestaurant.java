@@ -1,5 +1,5 @@
-import rmi.RestaurantDataRequesterInterface;
 import rmi.RestaurantDataRequester;
+import rmi.RestaurantDataRequesterInterface;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

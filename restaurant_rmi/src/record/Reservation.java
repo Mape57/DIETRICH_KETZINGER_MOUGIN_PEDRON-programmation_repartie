@@ -34,6 +34,16 @@ public class Reservation {
 		this(-1, idTable, nom, prenom, nbConviv, numTel, dateRes);
 	}
 
+	public static boolean isTableLibre(int idTable, LocalDateTime date) throws SQLException {
+		Connection connection = RestaurantDB.getConnection();
+		Statement s = connection.createStatement();
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String dateStr = date.format(formatter);
+
+		return !s.executeQuery("SELECT IDRESERV FROM RESERVATIONS WHERE IDTABLE = " + idTable + " AND to_date('" + dateStr + "', 'YYYY-MM-DD HH24:MI:SS') BETWEEN dateRes AND DATERES + INTERVAL '" + (DUREE_RESERVATION * 60 - 1) + "' MINUTE").next();
+	}
+
 	public boolean save() throws SQLException {
 		if (this.idReserv != -1) return false;
 
@@ -48,16 +58,6 @@ public class Reservation {
 		rs.next();
 		this.idReserv = rs.getInt(1);
 		return true;
-	}
-
-	public static boolean isTableLibre(int idTable, LocalDateTime date) throws SQLException {
-		Connection connection = RestaurantDB.getConnection();
-		Statement s = connection.createStatement();
-
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String dateStr = date.format(formatter);
-
-		return !s.executeQuery("SELECT IDRESERV FROM RESERVATIONS WHERE IDTABLE = " + idTable + " AND to_date('" + dateStr + "', 'YYYY-MM-DD HH24:MI:SS') BETWEEN dateRes AND DATERES + INTERVAL '" + (DUREE_RESERVATION * 60 - 1) + "' MINUTE").next();
 	}
 
 	public JSONObject toJSON() {
