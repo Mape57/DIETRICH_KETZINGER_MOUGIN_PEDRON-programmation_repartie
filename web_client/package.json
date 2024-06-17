@@ -1,0 +1,19 @@
+{
+  "name": "web_client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild index.js --bundle --sourcemap --target=es2015 --outfile=dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mape57/DIETRICH_KETZINGER_MOUGIN_PEDRON-programmation_repartie.git"
+  },
+  "private": true,
+  "dependencies": {
+    "esbuild": "^0.21.5",
+    "handlebars": "^4.7.8",
+    "leaflet": "^1.9.4"
+  }
+}

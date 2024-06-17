@@ -7,7 +7,8 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 		  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
 		  crossorigin=""/>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="css/meteo.css">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div id="map"></div>
@@ -18,9 +19,45 @@
 	<label class="filter-btn"><input type="checkbox" id="toggleIncidents"> Incidents</label>
 	<label class="filter-btn"><input type="checkbox" id="toggleSchools"> Ecoles </label>
 </div>
+
+<div id="meteo"></div>
+
+<script type="text/x-handlebars-template" id="meteo_template">
+	<div id="meteo_week">
+		<div id="days">
+			{{#with current_day}}
+				<div id="current_day">
+					<h1>{{temp}}</h1>
+					<div id="side_detail">
+						<p>{{heure}}</p>
+						<h2>{{jour}}</h2>
+						<p>{{descr}}</p>
+					</div>
+				</div>
+			{{/with}}
+			<div id="list_day">
+				{{#each hours}}
+					<div>
+						<p>{{heure}}</p>
+						<p>{{temp}}</p>
+					</div>
+				{{/each}}
+			</div>
+		</div>
+		<div id="hours">
+			{{#each days}}
+				<div {{#if current}}class="current_day"{{/if}}>
+					<p>{{jour}}</p>
+					<p>{{temp}}</p>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-		crossorigin=""></script>
-<script src="index.js" type="module"></script>
+		crossorigin="">
+</script>
+<script src="dist/index.js" type="module"></script>
 </body>
 </html>

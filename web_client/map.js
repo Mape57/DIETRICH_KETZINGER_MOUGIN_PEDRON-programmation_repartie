@@ -1,4 +1,5 @@
 // map.js
+import L from 'leaflet';
 
 export function initMap() {
 	// Initialiser la carte

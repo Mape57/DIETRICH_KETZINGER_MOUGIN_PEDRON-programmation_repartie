@@ -2,10 +2,15 @@ import {initMap, addMarkersToMap, redIcon, blueIcon, yellowIcon, greenIcon} from
 import {fetchVeloData} from './recup_velo.js';
 import {fetchRestaurantList, fetchRestaurantDetails} from './recup_restaurants.js';
 import {fetchIncidentData} from "./recup_incidents.js";
-import {fetchSchoolData} from "./recup_ecoles.js"; // Importer la nouvelle fonction
+import {fetchSchoolData} from "./recup_ecoles.js";
+import {fetchMeteo} from "./script/recuperation/recup_meteo";
+import {displayMeteo} from "./script/affichage/aff_meteo"; // Importer la nouvelle fonction
 
 document.addEventListener('DOMContentLoaded', async () => {
 	const map = initMap();
+
+	const meteo = await fetchMeteo();
+	displayMeteo(meteo);
 
 	let restaurantMarkers = [];
 	let veloMarkers = [];
