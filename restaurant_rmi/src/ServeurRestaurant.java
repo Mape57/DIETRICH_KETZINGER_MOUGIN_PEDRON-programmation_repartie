@@ -1,22 +1,21 @@
+import rmi.BinderInterface;
 import rmi.RestaurantDataRequester;
 import rmi.RestaurantDataRequesterInterface;
 
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class ServeurRestaurant {
-	public static void main(String[] args) throws RemoteException {
-		System.out.println("Lancement du serveur RMI...");
-		System.out.println("Création de l'objet distant.");
+	public static void main(String[] args) throws NotBoundException, RemoteException {
 		RestaurantDataRequester rdr = new RestaurantDataRequester();
-		RestaurantDataRequesterInterface dr = (RestaurantDataRequesterInterface) UnicastRemoteObject.exportObject(rdr, 0);
 
-		System.out.println("Enregistrement de l'objet distant sur le registre.");
-		Registry registry = LocateRegistry.getRegistry();
-		registry.rebind("restaurant", dr);
+		Registry registry = LocateRegistry.getRegistry("localhost");
+		BinderInterface binder = (BinderInterface) registry.lookup("restaurant");
 
-		System.out.println("Serveur RMI lancé.\n");
+		RestaurantDataRequesterInterface restaurant = (RestaurantDataRequesterInterface) UnicastRemoteObject.exportObject(rdr, 0);
+		binder.enregistrer(restaurant);
 	}
 }
