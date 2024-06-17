@@ -1,7 +1,9 @@
 // recup_incidents.js
 
+import {baseURL} from "./script/config";
+
 export async function fetchIncidentData() {
-    return fetch("http://localhost:8080/travaux")
+    return fetch(`${baseURL}/travaux`)
         .then(response => response.json())
         .then(data => {
             return data.incidents.map(incident => {
