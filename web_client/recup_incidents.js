@@ -1,7 +1,7 @@
 // recup_incidents.js
 
 export async function fetchIncidentData() {
-    return fetch("http://localhost:8080/travaux")  // Remplacez par l'URL réelle de votre API
+    return fetch("http://localhost:8080/travaux")
         .then(response => response.json())
         .then(data => {
             return data.incidents.map(incident => {
