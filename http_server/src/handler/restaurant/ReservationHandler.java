@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-public class GetReservationPossible implements HttpHandler {
+public class ReservationHandler implements HttpHandler {
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		String query = exchange.getRequestURI().getQuery();
@@ -26,10 +26,10 @@ public class GetReservationPossible implements HttpHandler {
 		} else if (params.get("date").matches("\\d{4}-\\d{2}-\\d{2}_\\d{2}:\\d{2}:\\d{2}")) {
 			content = postReservation(params);
 		} else {
-			exchange.sendResponseHeaders(400, -1);
+			ExchangeContentSender.send(exchange, "Les paramètres fournis ne sont pas corrects.", 400);
 		}
 
-		ExchangeContentSender.send(exchange, content);
+		ExchangeContentSender.send(exchange, content, 200);
 	}
 
 	private String getPossibleReservation(Map<String, String> params) throws RemoteException {
