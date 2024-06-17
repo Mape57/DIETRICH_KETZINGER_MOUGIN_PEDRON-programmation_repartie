@@ -6,62 +6,85 @@ import {fetchIncidentData} from "./recup_incidents.js";
 document.addEventListener('DOMContentLoaded', async () => {
 	const map = initMap();
 
+	let restaurantMarkers = [];
+	let veloMarkers = [];
+	let incidentMarkers = [];
+
 	// Récupérer les données des vélos et ajouter les marqueurs
 	const veloCoordinates = await fetchVeloData();
-	addMarkersToMap(map, veloCoordinates, redIcon, (station, marker) => {
-		const popupContent = createVeloPopupContent(station);
-		marker.bindPopup(popupContent).openPopup();
-	});
-
-
-
-		// Récupérer la liste des restaurants
-		const restaurantList = await fetchRestaurantList();
-
-
-	// Ajouter les marqueurs des restaurants sans les détails
-	addMarkersToMap(map, restaurantList, blueIcon, async (restaurant, marker) => {
-		const details = await fetchRestaurantDetails(restaurant.idResto);
-		if (details) {
-			const popupContent = createPopupContent(details);
-			marker.bindPopup(popupContent).openPopup();
-		}
-	});
+	veloMarkers = addMarkersToMap(map, veloCoordinates, redIcon, (coord) => {createVeloPopupContent(coord)});
 
 	// Récupérer les données des incidents et ajouter les marqueurs
 	const incidentData = await fetchIncidentData();
-	addMarkersToMap(map, incidentData, yellowIcon, (incident, marker) => {
-		const popupContent = createIncidentPopupContent(incident);
-		marker.bindPopup(popupContent);
-		marker.on('click', () => {
-			marker.openPopup();
+	incidentMarkers = addMarkersToMap(map, incidentData, yellowIcon, (incident) => {createIncidentPopupContent(incident)});
+
+	// Récupérer la liste des restaurants et ajouter les marqueurs
+	const restaurantList = await fetchRestaurantList();
+	restaurantMarkers = addMarkersToMap(map, restaurantList, blueIcon, (restaurant, marker) => {
+		marker.on('click', async () => {
+			const details = await fetchRestaurantDetails(restaurant.idResto);
+			if (details) {
+				const popupContent = createPopupContent(details);
+				marker.bindPopup(popupContent).openPopup();
+			}
 		});
 	});
+
+	// Fonction pour afficher ou masquer les marqueurs
+	function toggleMarkers(markers, show) {
+		markers.forEach(marker => {
+			if (show) {
+				marker.addTo(map);
+			} else {
+				map.removeLayer(marker);
+			}
+		});
+	}
+
+	// Écouter les changements d'état des cases à cocher
+	document.getElementById('toggleRestaurants').addEventListener('change', (e) => {
+		toggleMarkers(restaurantMarkers, e.target.checked);
+	});
+
+	document.getElementById('toggleVelo').addEventListener('change', (e) => {
+		toggleMarkers(veloMarkers, e.target.checked);
+	});
+
+	document.getElementById('toggleIncidents').addEventListener('change', (e) => {
+		toggleMarkers(incidentMarkers, e.target.checked);
+	});
+
+	// Initial state: hide all markers
+	document.getElementById('toggleRestaurants').checked = True;
+	document.getElementById('toggleVelo').checked = false;
+	document.getElementById('toggleIncidents').checked = false;
+	toggleMarkers(restaurantMarkers, false);
+	toggleMarkers(veloMarkers, false);
+	toggleMarkers(incidentMarkers, false);
 });
 
-
-	function createPopupContent(details) {
-		return `
-			<div style="width: 250px;">
-				<img src="${details.imageUrl}" alt="Image du restaurant" style="width: 100%;">
-				<h3>${details.nomResto}</h3>
-				<p>Note: ${details.note}</p>
-				<p>Adresse: ${details.adr}</p>
-				<p>État: Ouvrir/Fermer</p>
-				<p>Horaires: 12:00 - 14:00, 19:00 - 22:00</p>
-				<button onclick="reserveRestaurant(${details.idResto})">RÉSERVER</button>
-			</div>
-		`;
+function createPopupContent(details) {
+	return `
+        <div style="width: 250px;">
+            <img src="${details.imageUrl}" alt="Image du restaurant" style="width: 100%;">
+            <h3>${details.nomResto}</h3>
+            <p>Note: ${details.note}</p>
+            <p>Adresse: ${details.adr}</p>
+            <p>État: Ouvrir/Fermer</p>
+            <p>Horaires: 12:00 - 14:00, 19:00 - 22:00</p>
+            <button onclick="reserveRestaurant(${details.idResto})">RÉSERVER</button>
+        </div>
+    `;
 }
 
 function createVeloPopupContent(station) {
 	return `
-			<div style="width: 250px;">
-				<h3>Station de Vélos</h3>
-				<p>Adresse: ${station.address}</p>
-				<p>Capacité: ${station.capacity} vélos</p>
-			</div>
-		`;
+        <div style="width: 250px;">
+            <h3>Station de Vélos</h3>
+            <p>Adresse: ${station.address}</p>
+            <p>Capacité: ${station.capacity} vélos</p>
+        </div>
+    `;
 }
 
 function createIncidentPopupContent(incident) {
@@ -75,7 +98,6 @@ function createIncidentPopupContent(incident) {
         </div>
     `;
 }
-
 
 // Fonction pour gérer la réservation (à implémenter)
 function reserveRestaurant(idResto) {
