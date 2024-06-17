@@ -2,3 +2,5 @@
 .idea
 *.iml
 /*/.gitignore
+*tmp*
+.conf
