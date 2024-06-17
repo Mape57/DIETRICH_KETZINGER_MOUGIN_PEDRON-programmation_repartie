@@ -55,4 +55,6 @@ public class RestaurantDataRequester implements DataRequester {
 
 		return jsonObject.toString();
 	}
+
+
 }
