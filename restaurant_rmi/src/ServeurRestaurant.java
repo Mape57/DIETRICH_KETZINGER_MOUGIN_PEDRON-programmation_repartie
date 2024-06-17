@@ -10,12 +10,18 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ServeurRestaurant {
 	public static void main(String[] args) throws NotBoundException, RemoteException {
+		System.out.println("Lancement du serveur...");
 		RestaurantDataRequester rdr = new RestaurantDataRequester();
 
+		System.out.println("Récupération du registre RMI");
 		Registry registry = LocateRegistry.getRegistry("localhost");
+		System.out.println("Récupération du binder\n");
 		BinderInterface binder = (BinderInterface) registry.lookup("restaurant");
 
+		System.out.println("Enregistrement du restaurant");
 		RestaurantDataRequesterInterface restaurant = (RestaurantDataRequesterInterface) UnicastRemoteObject.exportObject(rdr, 0);
 		binder.enregistrer(restaurant);
+		System.out.println("Enregistrement effectué\n");
+		System.out.println("Serveur lancé");
 	}
 }
