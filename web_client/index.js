@@ -1,6 +1,7 @@
-	import { initMap, addMarkersToMap, redIcon, blueIcon } from './map.js';
-	import { fetchVeloData } from './recup_velo.js';
-	import { fetchRestaurantList, fetchRestaurantDetails } from './recup_restaurants.js';
+import { initMap, addMarkersToMap, redIcon, blueIcon, yellowIcon } from './map.js';
+import { fetchVeloData } from './recup_velo.js';
+import { fetchRestaurantList, fetchRestaurantDetails } from './recup_restaurants.js';
+import { fetchIncidentData } from "./recup_incidents.js";
 
 	document.addEventListener('DOMContentLoaded', async () => {
 		const map = initMap();
@@ -27,6 +28,25 @@
 			}
 		});
 	});
+	// Ajouter les marqueurs des restaurants sans les détails
+	addMarkersToMap(map, restaurantList, blueIcon, async (restaurant, marker) => {
+		const details = await fetchRestaurantDetails(restaurant.idResto);
+		if (details) {
+			const popupContent = createPopupContent(details);
+			marker.bindPopup(popupContent).openPopup();
+		}
+	});
+
+	// Récupérer les données des incidents et ajouter les marqueurs
+	const incidentData = await fetchIncidentData();
+	addMarkersToMap(map, incidentData, yellowIcon, (incident, marker) => {
+		const popupContent = createIncidentPopupContent(incident);
+		marker.bindPopup(popupContent);
+		marker.on('click', () => {
+			marker.openPopup();
+		});
+	});
+});
 
 	function createPopupContent(details) {
 		return `
@@ -51,6 +71,18 @@
 			</div>
 		`;
 	}
+
+function createIncidentPopupContent(incident) {
+	return `
+        <div style="width: 250px;">
+            <h3>${incident.short_description}</h3>
+            <p>${incident.description}</p>
+            <p><b>Début:</b> ${incident.starttime}</p>
+            <p><b>Fin:</b> ${incident.endtime}</p>
+            <p><b>Localisation:</b> ${incident.location_description}</p>
+        </div>
+    `;
+}
 
 
 	// Fonction pour gérer la réservation (à implémenter)
