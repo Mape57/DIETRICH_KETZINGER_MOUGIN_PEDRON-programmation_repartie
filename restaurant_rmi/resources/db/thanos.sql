@@ -644,90 +644,33 @@ INSERT INTO NOM2FAMILLE (nomTest) VALUES ('Yoni');
 INSERT INTO NOM2FAMILLE (nomTest) VALUES ('Zajaczkowski');
 INSERT INTO NOM2FAMILLE (nomTest) VALUES ('Zapata');
 
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Bistronome', '5 Rue des Ponts, 54000 Nancy', '48.6913,6.1834', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L’Excelsior', '50 Rue Henri Poincaré, 54000 Nancy', '48.6897,6.1758', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Maison Dans le Parc', '3 Rue Sainte-Catherine, 54000 Nancy', '48.6924,6.1870', 10);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('A La Table du Bon Roi Stanislas', '7 Rue Gustave Simon, 54000 Nancy', '48.6956,6.1841', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Majeur', '6 Rue des Maréchaux, 54000 Nancy', '48.6925,6.1844', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Monsieur FUJI Sushi & Bubble Tea', '3 Rue des Dominicains, 54000 Nancy', '48.6915,6.1802', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Brend`Oliv', '14 Rue des Carmes, 54000 Nancy', '48.6922,6.1841', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Gentilhommiere', '5 Rue des Loups, 54000 Nancy', '48.6898,6.1754', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Voyou', '8 Rue Gustave Simon, 54000 Nancy', '48.6946,6.1821', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Les Fourmis Rouges', '6 Rue Gustave Simon, 54000 Nancy', '48.6945,6.1823', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Potager', '12 Rue des Ponts, 54000 Nancy', '48.6910,6.1830', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Comptoir Saint-Michel', '3 Rue Saint-Michel, 54000 Nancy', '48.6940,6.1820', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Pidélice', '14 Rue Saint-Jean, 54000 Nancy', '48.6930,6.1850', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L`Eden', '17 Rue de la Commanderie, 54000 Nancy', '48.6880,6.1720', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L`Arsenal', '6 Place Stanislas, 54000 Nancy', '48.6933,6.1843', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Basilic & Co Nancy', '16 Rue de la Visitation, 54000 Nancy', '48.6944,6.1789', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Nemo Poke Bowl', '20 Rue Saint-Dizier, 54000 Nancy', '48.6935,6.1816', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Crêperie La Bolée', '23 Rue des Maréchaux, 54000 Nancy', '48.6928,6.1837', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Retrogusto', '4 Rue Gustave Simon, 54000 Nancy', '48.6944,6.1823', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L`atelier 35', '35 Rue Stanislas, 54000 Nancy', '48.6926,6.1749', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Karma', '15 Rue du Grand Rabbin Haguenauer, 54000 Nancy', '48.6921,6.1832', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Au Coin de La Rue', '10 Rue Stanislas, 54000 Nancy', '48.6925,6.1753', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Pauz', '12 Rue de la Primatiale, 54000 Nancy', '48.6937,6.1813', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Table de l’Artisan', '25 Rue Gustave Simon, 54000 Nancy', '48.6942,6.1822', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Vins et Tartines', '5 Rue du Haut Bourgeois, 54000 Nancy', '48.6939,6.1817', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Les Frères Marchand', '14 Place Saint-Étienne, 54000 Nancy', '48.6931,6.1861', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Les Petits Gobelins', '30 Rue des Ponts, 54000 Nancy', '48.6905,6.1820', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Bouche à Oreille', '8 Rue du Pont Mouja, 54000 Nancy', '48.6908,6.1789', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L`Imprimerie', '5 Rue des Soeurs Macarons, 54000 Nancy', '48.6941,6.1768', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Bistro Here', '24 Rue de la Source, 54000 Nancy', '48.6906,6.1733', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Chez Henri', '6 Rue du Tapis Vert, 54000 Nancy', '48.6938,6.1816', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Primatiale', '2 Rue de la Primatiale, 54000 Nancy', '48.6930,6.1809', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Gaston Le Meilleur', '15 Rue des Dames, 54000 Nancy', '48.6927,6.1835', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Mandigote', '25 Rue de la Charité, 54000 Nancy', '48.6929,6.1778', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Villa Pereire', '10 Rue Gustave Simon, 54000 Nancy', '48.6941,6.1823', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Capu', '11 Rue Gustave Simon, 54000 Nancy', '48.6943,6.1821', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Bistro de la Gare', '4 Rue de l`Abbé Didelot, 54000 Nancy', '48.6920,6.1780', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Café Foy', '8 Rue de la Ravinelle, 54000 Nancy', '48.6929,6.1802', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Café de l`Opéra', '9 Rue de l`Opéra, 54000 Nancy', '48.6932,6.1811', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Petite France', '4 Rue du Colonel Driant, 54000 Nancy', '48.6921,6.1812', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Table de Bacchus', '3 Rue Gambetta, 54000 Nancy', '48.6919,6.1817', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Petit Cochon', '2 Rue de la Primatiale, 54000 Nancy', '48.6935,6.1811', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L`Instant Gourmet', '8 Rue des Carmes, 54000 Nancy', '48.6923,6.1809', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Taverne de l`Irlandais', '12 Rue des Ponts, 54000 Nancy', '48.6909,6.1824', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Tour de Pise', '7 Rue Stanislas, 54000 Nancy', '48.6926,6.1764', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Les Délices du Maroc', '25 Rue de l`Île de Corse, 54000 Nancy', '48.6937,6.1831', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Bella Italia', '11 Rue des Maréchaux, 54000 Nancy', '48.6933,6.1851', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Vieux Moulin', '9 Rue de la Côte, 54000 Nancy', '48.6922,6.1808', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Petit Zinc', '2 Place Stanislas, 54000 Nancy', '48.6930,6.1849', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L`Auberge de l`Ile', '20 Rue Saint-Georges, 54000 Nancy', '48.6945,6.1822', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Bistrot de l`Opéra', '2 Rue de l`Opéra, 54000 Nancy', '48.6935,6.1834', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Bouche à Oreille', '8 Rue Gustave Simon, 54000 Nancy', '48.6948,6.1823', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Grand Café Foy', '12 Rue Saint-Dizier, 54000 Nancy', '48.6930,6.1814', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Téméraire', '9 Rue Stanislas, 54000 Nancy', '48.6924,6.1763', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Trinité', '14 Place Saint-Jean, 54000 Nancy', '48.6933,6.1842', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Les Caves Saint-Rémy', '4 Rue de la Hache, 54000 Nancy', '48.6921,6.1830', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Maison Lariflette', '16 Rue des Ponts, 54000 Nancy', '48.6907,6.1833', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le 1920', '9 Rue de la Visitation, 54000 Nancy', '48.6931,6.1787', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Grand Charles', '1 Rue de Charles III, 54000 Nancy', '48.6942,6.1790', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L`Aubépine', '7 Rue de la Côte, 54000 Nancy', '48.6919,6.1808', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Passage Bleu', '8 Rue Stanislas, 54000 Nancy', '48.6928,6.1758', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Vin Bleu', '15 Rue Saint-Dizier, 54000 Nancy', '48.6932,6.1810', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Les Artistes', '2 Rue Stanislas, 54000 Nancy', '48.6929,6.1760', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Clandestine', '5 Rue Sainte-Catherine, 54000 Nancy', '48.6924,6.1849', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L`Estanco', '14 Rue Saint-Nicolas, 54000 Nancy', '48.6925,6.1821', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Maison Rouge', '11 Rue Saint-Jean, 54000 Nancy', '48.6931,6.1850', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Saigon', '8 Rue de l`Orme, 54000 Nancy', '48.6926,6.1839', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Chez Ali', '7 Rue Saint-Georges, 54000 Nancy', '48.6944,6.1827', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Villa d`Este', '5 Rue des Dominicains, 54000 Nancy', '48.6913,6.1803', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Vieux Moulin', '3 Rue du Haut Bourgeois, 54000 Nancy', '48.6935,6.1811', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Taverne Alsacienne', '6 Rue Saint-Dizier, 54000 Nancy', '48.6930,6.1819', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Chardon Bleu', '9 Rue des Ponts, 54000 Nancy', '48.6908,6.1831', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Planche à Pain', '12 Rue des Ponts, 54000 Nancy', '48.6912,6.1834', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Chez Clément', '10 Rue des Loups, 54000 Nancy', '48.6906,6.1753', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Saint-Nicolas', '6 Rue Saint-Nicolas, 54000 Nancy', '48.6925,6.1822', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Pélican', '3 Rue des Quatre Églises, 54000 Nancy', '48.6919,6.1829', 8);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Grenouille Bleue', '15 Rue Saint-Michel, 54000 Nancy', '48.6931,6.1821', 9);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Au Bistronome', '19 Rue Saint-Michel, 54000 Nancy', '48.6961557,6.1782619', 8);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L’Excelsior', '50 Rue Henri Poincaré, 54000 Nancy', '48.6907672,6.1755009', 9);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Maison Dans le Parc', '3 Rue Sainte-Catherine, 54000 Nancy', '48.6942983,6.1852112', 10);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('A La Table du Bon Roi Stanislas', '7 Rue Gustave Simon, 54000 Nancy', '48.6937808,6.1809398', 9);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Majeur', '13 Rue Grand Rabbin Haguenauer, 54000 Nancy', '48.6873301,6.1802686', 8);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Monsieur FUJI Sushi & Bubble Tea', '41 Rue Saint-Dizier, 54000 Nancy', '48.6905273,6.1827526', 9);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('BrendOliv', '141 Grande Rue, 54000 Nancy', '48.6987302,6.1778737', 8);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Gentilhommiere', '29 Rue des Maréchaux, 54000 Nancy', '48.6941139,6.1809539', 8);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Voyou', '20 Rue Stanislas, 54000 Nancy', '48.6921818,6.1814799', 9);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Les Fourmis Rouges', '36 Bd d Australie, 54000 Nancy', '48.6931072,6.1989394', 8);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Potager lorrain', '25 Rue des Maréchaux, 54000 Nancy', '48.6941507,6.1811004', 9);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Le Comptoir St Michel', '2 Rue Saint-Michel, 54000 Nancy', '48.6969090,6.1791816', 8);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Pidélice', '25 Rue Raymond Poincaré, 54000 Nancy', '48.6900782,6.1722263', 9);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L Eden', '45 Grande Rue, 54000 Nancy', '48.6962453,6.1803899', 8);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L Arsenal', '24 Pl. de l Arsenal, 54000 Nancy', '48.6969125,6.1776588', 9);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Basilic & Co Nancy', '15 Rue Saint-Dizier, 54000 Nancy', '48.6922688,6.1814873', 8);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Nemo Poke Bowl', '2 Rue Dom Calmet, 54000 Nancy', '48.6917116,6.1813324', 9);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Bolée Crêperie Bretonne', '43 Rue des Ponts, 54000 Nancy', '48.6977628,6.1825877', 8);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Retrogusto', '40 Rue Stanislas, 54000 Nancy', '48.6927858,6.1805851', 9);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L Atelier 35', '35 Rue des Ponts, 54000 Nancy', '48.9880802,6.1821719', 8);
 
 DECLARE
 v_idResto NUMBER(3);
     v_numTables NUMBER(3);
     v_numPlaces NUMBER(3);
 BEGIN
-FOR i IN 1..77 LOOP
+FOR i IN 1..20 LOOP
         v_idResto := i;
         v_numTables := DBMS_RANDOM.VALUE(10, 50); -- Nombre aléatoire de tables entre 10 et 50
 FOR j IN 1..v_numTables LOOP
@@ -747,7 +690,7 @@ v_idResto NUMBER(3);
     v_jourFermeture NUMBER(1);
     v_ttLaJournee NUMBER(1);
 BEGIN
-FOR i IN 1..77 LOOP
+FOR i IN 1..20 LOOP
             v_idResto := i;
             v_jourFermeture := ROUND(DBMS_RANDOM.VALUE(1, 7));
             -- Génère un jour de fermeture aléatoire entre 1 et 7
@@ -851,7 +794,7 @@ RETURN v_count > 0;
 END;
 
 BEGIN
-FOR i IN 1..77 LOOP
+FOR i IN 1..20 LOOP
             v_idResto := i;
 
 FOR jour IN 1..7 LOOP
