@@ -13,4 +13,8 @@ public interface RestaurantDataRequesterInterface extends Remote {
 	String getAllRestaurantPosition() throws RemoteException;
 
 	String getRestaurantById(int idResto) throws RemoteException;
+
+	String getRestaurantHoraires(int idResto) throws RemoteException;
+
+	String postRestaurant(String nomResto, String adr, String coordonnees, int note) throws RemoteException;
 }
