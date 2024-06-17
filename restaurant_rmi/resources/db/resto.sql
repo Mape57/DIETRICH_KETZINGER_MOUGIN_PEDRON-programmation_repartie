@@ -15,6 +15,6 @@ INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L Eden', '45
 INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L Arsenal', '24 Pl. de l Arsenal, 54000 Nancy', '48.6969125,6.1776588', 9);
 INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Basilic & Co Nancy', '15 Rue Saint-Dizier, 54000 Nancy', '48.6922688,6.1814873', 8);
 INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Nemo Poke Bowl', '2 Rue Dom Calmet, 54000 Nancy', '48.6917116,6.1813324', 9);
-INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Bolée Crêperie Bretonne', '43 Rue des Ponts, 54000 Nancy', '48.6977628,6.1825877', 8);
+INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('La Bolée Crêperie Bretonne', '43 Rue des Ponts, 54000 Nancy', '48.6876781,6.1824284', 8);
 INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('Retrogusto', '40 Rue Stanislas, 54000 Nancy', '48.6927858,6.1805851', 9);
 INSERT INTO restaurants (nomResto, adr, coordonnees, note) VALUES ('L Atelier 35', '35 Rue des Ponts, 54000 Nancy', '48.9880802,6.1821719', 8);

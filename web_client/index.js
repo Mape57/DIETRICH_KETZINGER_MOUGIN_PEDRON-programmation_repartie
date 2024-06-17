@@ -25,13 +25,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 function createPopupContent(details) {
 	return `
 		<div style="width: 250px;">
-			<img src="https://via.placeholder.com/250" alt="Image du restaurant" style="width: 100%;">
+			<img src="${details.imageUrl}" alt="Image du restaurant" style="width: 100%;">
 			<h3>${details.nomResto}</h3>
 			<p>Note: ${details.note}</p>
 			<p>Adresse: ${details.adr}</p>
-			<p>Coordonnées: ${details.coordonnees}</p>
 			<p>État: Ouvrir/Fermer</p>
-			<p>Horaires: 12:00 - 14:00, 19:00 - 22:00 ceci est un exemple a finir</p>
+			<p>Horaires: 12:00 - 14:00, 19:00 - 22:00</p>
 			<button onclick="reserveRestaurant(${details.idResto})">RÉSERVER</button>
 		</div>
 	`;
