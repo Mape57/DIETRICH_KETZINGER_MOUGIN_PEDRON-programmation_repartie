@@ -2,7 +2,7 @@
 
 // Récupère la liste des restaurants avec leurs coordonnées
 export function fetchRestaurantList() {
-	return fetch("http://localhost:8000/restaurants")
+	return fetch("http://localhost:8080/restaurants")
 		.then(response => response.json())
 		.then(data => {
 			return data.map(station => {
@@ -18,7 +18,7 @@ export function fetchRestaurantList() {
 
 // Récupère les détails d'un restaurant par son ID
 export function fetchRestaurantDetails(idResto) {
-	return fetch(`http://localhost:8000/restaurants/${idResto}`)
+	return fetch(`http://localhost:8080/restaurants/${idResto}`)
 		.then(response => response.json())
 		.then(data => {
 			const [lat, lon] = data.coordonnees.split(',').map(Number);
