@@ -36,7 +36,7 @@ export async function fetchRestaurantDetails(idResto) {
 			return null;
 		});
 }
-
+//tom revoit l'utilisation de l'index, il n'y en a surement pas besoin si tu change la requete indiqué dans l'url
 // Fonction pour obtenir une image de Unsplash pour un restaurant
 async function fetchRestaurantImage(restaurantName) {
 	console.log(restaurantName)
