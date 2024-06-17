@@ -1,3 +1,5 @@
+// map.js
+
 export function initMap() {
 	// Initialiser la carte
 	var map = L.map('map').setView([48.692054, 6.18788], 13); // Centre sur Nancy (latitude, longitude) avec un zoom de 13
@@ -10,7 +12,7 @@ export function initMap() {
 	return map;
 }
 
-// Définir une icône personnalisée
+// Définir des icônes personnalisées
 export var redIcon = L.icon({
 	iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
 	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
@@ -19,7 +21,6 @@ export var redIcon = L.icon({
 	popupAnchor: [1, -34], // point d'ancrage de la popup par rapport à l'icône
 	shadowSize: [41, 41]  // taille de l'ombre
 });
-
 
 export var blueIcon = L.icon({
 	iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
@@ -30,11 +31,19 @@ export var blueIcon = L.icon({
 	shadowSize: [41, 41]  // taille de l'ombre
 });
 
+export var yellowIcon = L.icon({
+	iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+	iconSize: [25, 41], // taille de l'icône
+	iconAnchor: [12, 41], // point d'ancrage de l'icône (base de l'icône)
+	popupAnchor: [1, -34], // point d'ancrage de la popup par rapport à l'icône
+	shadowSize: [41, 41]  // taille de l'ombre
+});
 
-export function addMarkersToMap(mapp, coordinates, icon, onClick) {
+export function addMarkersToMap(map, coordinates, icon, onClick) {
 	coordinates.forEach(coord => {
 		if (coord.lat !== undefined && coord.lon !== undefined) {
-			const marker = L.marker([coord.lat, coord.lon], { icon: icon }).addTo(mapp);
+			const marker = L.marker([coord.lat, coord.lon], { icon: icon }).addTo(map);
 			if (onClick) {
 				marker.on('click', () => onClick(coord, marker));
 			}
@@ -43,4 +52,3 @@ export function addMarkersToMap(mapp, coordinates, icon, onClick) {
 		}
 	});
 }
-
