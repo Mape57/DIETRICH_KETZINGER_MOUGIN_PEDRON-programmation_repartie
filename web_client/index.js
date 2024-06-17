@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	let restaurantMarkers = [];
 	let veloMarkers = [];
 	let incidentMarkers = [];
+	let shoolMarkers = [];
 
 	// Récupérer les données des vélos et ajouter les marqueurs
 	const veloCoordinates = await fetchVeloData();
@@ -18,6 +19,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 	// Récupérer les données des incidents et ajouter les marqueurs
 	const incidentData = await fetchIncidentData();
 	incidentMarkers = addMarkersToMap(map, incidentData, yellowIcon, (incident) => {createIncidentPopupContent(incident)});
+
+	const shoolCoordinates = await fetchSchoolData();
+	shoolMarkers = addMarkersToMap(map, shoolCoordinates, greenIcon, (shool) => {createSchoolPopupContent(shool)});
 
 	// Récupérer la liste des restaurants et ajouter les marqueurs
 	const restaurantList = await fetchRestaurantList();
@@ -31,12 +35,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 		});
 	});
 
-	// Récupérer les données des établissements scolaires et ajouter les marqueurs
-	const schoolData = await fetchSchoolData();
-	addMarkersToMap(map, schoolData, greenIcon, (school, marker) => {
-		const popupContent = createSchoolPopupContent(school);
-		marker.bindPopup(popupContent);
-	});
+	// // Récupérer les données des établissements scolaires et ajouter les marqueurs
+	// const schoolData = await fetchSchoolData();
+	// addMarkersToMap(map, schoolData, greenIcon, (school, marker) => {
+	// 	const popupContent = createSchoolPopupContent(school);
+	// 	marker.bindPopup(popupContent);
+	// });
 
 	// Fonction pour afficher ou masquer les marqueurs
 	function toggleMarkers(markers, show) {
@@ -62,13 +66,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 		toggleMarkers(incidentMarkers, e.target.checked);
 	});
 
+	document.getElementById('toggleSchools').addEventListener('change', (e) => {
+		toggleMarkers(shoolMarkers, e.target.checked);
+	});
+
 	// Initial state: hide all markers
 	document.getElementById('toggleRestaurants').checked = true;
 	document.getElementById('toggleVelo').checked = false;
 	document.getElementById('toggleIncidents').checked = false;
+	document.getElementById('toggleSchools').checked = false;
 	toggleMarkers(restaurantMarkers, true);
 	toggleMarkers(veloMarkers, false);
 	toggleMarkers(incidentMarkers, false);
+	toggleMarkers(shoolMarkers, false);
+
+
+
 });
 
 function createPopupContent(details) {
