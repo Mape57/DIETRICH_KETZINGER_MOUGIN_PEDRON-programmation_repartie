@@ -2,6 +2,7 @@ package rmi;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import record.Horaire;
 import record.Reservation;
 import record.Restaurant;
 import record.Table;
@@ -10,7 +11,9 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RestaurantDataRequester implements RestaurantDataRequesterInterface {
 	@Override
@@ -88,5 +91,50 @@ public class RestaurantDataRequester implements RestaurantDataRequesterInterface
 		if (restaurant == null) return "{}";
 
 		return restaurant.toJSON().toString();
+	}
+
+	@Override
+	public String getRestaurantHoraires(int idResto) throws RemoteException {
+		List<Horaire> horaires;
+		try {
+			horaires = Horaire.getHoraire(idResto);
+		} catch (SQLException e) {
+			System.out.println("Erreur lors de la récupération des horaires du restaurant.");
+			return "{}";
+		}
+
+		Map<String, JSONArray> horairesMap = new HashMap<>();
+		for (Horaire horaire : horaires) {
+			if (horairesMap.containsKey(horaire.getJour())) {
+				JSONArray jsonArray = horairesMap.get(horaire.getJour());
+				pushHoraireInJson(jsonArray, horaire);
+			} else {
+				JSONArray jsonArray = new JSONArray();
+				pushHoraireInJson(jsonArray, horaire);
+				horairesMap.put(horaire.getJour(), jsonArray);
+			}
+		}
+
+		JSONObject jsonObject = new JSONObject(horairesMap);
+		return jsonObject.toString();
+	}
+
+	@Override
+	public String postRestaurant(String nomResto, String adr, String coordonnees, int note) throws RemoteException {
+		Restaurant restaurant = new Restaurant(nomResto, adr, coordonnees, note);
+		try {
+			restaurant.save();
+		} catch (SQLException e) {
+			System.out.println("Erreur lors de la sauvegarde du restaurant.");
+			return "{}";
+		}
+		return restaurant.toJSON().toString();
+	}
+
+	private static void pushHoraireInJson(JSONArray jsonArray, Horaire horaire) {
+		JSONArray hours = new JSONArray();
+		hours.put(horaire.getHeureOuverture());
+		hours.put(horaire.getHeureFermeture());
+		jsonArray.put(hours);
 	}
 }

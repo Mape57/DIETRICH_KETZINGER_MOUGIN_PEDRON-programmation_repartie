@@ -34,6 +34,19 @@ public class Restaurant {
 		this(-1, nomResto, adr, coordonnees, note);
 	}
 
+	public boolean save() throws SQLException {
+		if (this.idResto != -1) return false;
+
+		Connection connection = RestaurantDB.getConnection();
+		Statement s = connection.createStatement();
+
+		s.executeUpdate("INSERT INTO RESTAURANTS (NOMRESTO, ADR, COORDONNEES, NOTE) VALUES ('" + nomResto + "', '" + adr + "', '" + coordonnees + "', " + note + ")");
+		ResultSet rs = s.executeQuery("SELECT MAX(IDRESTO) FROM RESTAURANTS");
+		rs.next();
+		this.idResto = rs.getInt(1);
+		return true;
+	}
+
 	public static List<Restaurant> getAll() throws SQLException {
 		Connection connection = RestaurantDB.getConnection();
 		Statement rs = connection.createStatement();
