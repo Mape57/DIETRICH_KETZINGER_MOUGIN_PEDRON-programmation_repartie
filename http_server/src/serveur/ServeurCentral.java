@@ -1,10 +1,10 @@
 package serveur;
 
 import com.sun.net.httpserver.HttpServer;
-import handler.restaurant.GetReservationPossible;
-import handler.restaurant.GetRestaurantById;
-import handler.restaurant.GetRestaurantLocations;
-import handler.travaux.GetTravaux;
+import handler.restaurant.ReservationHandler;
+import handler.restaurant.RestaurantByIdHandler;
+import handler.restaurant.RestaurantsHandler;
+import handler.travaux.TravauxHandler;
 import rmi.IncidentDataRequesterInterface;
 import rmi.RestaurantDataRequesterInterface;
 
@@ -36,10 +36,10 @@ public class ServeurCentral {
 
 		System.out.println("Création du serveur HTTP");
 		HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-		server.createContext("/restaurants", new GetRestaurantLocations());
-		server.createContext("/restaurants/", new GetRestaurantById());
-		server.createContext("/reservation", new GetReservationPossible());
-		server.createContext("/travaux", new GetTravaux());
+		server.createContext("/restaurants/", new RestaurantByIdHandler());
+		server.createContext("/restaurants", new RestaurantsHandler());
+		server.createContext("/reservation", new ReservationHandler());
+		server.createContext("/travaux", new TravauxHandler());
 		server.start();
 
 		System.out.println("Serveur lancé");

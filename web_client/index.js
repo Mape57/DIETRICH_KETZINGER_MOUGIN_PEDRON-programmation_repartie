@@ -1,7 +1,6 @@
-import { initMap, addMarkersToMap, redIcon, blueIcon, yellowIcon } from './map.js';
+import { initMap, addMarkersToMap, redIcon, blueIcon } from './map.js';
 import { fetchVeloData } from './recup_velo.js';
 import { fetchRestaurantList, fetchRestaurantDetails } from './recup_restaurants.js';
-import { fetchIncidentData } from './recup_incidents.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
 	const map = initMap();
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const details = await fetchRestaurantDetails(restaurant.idResto);
 		if (details) {
 			const popupContent = createPopupContent(details);
-			marker.bindPopup(popupContent);
+			marker.bindPopup(popupContent).openPopup();
 		}
 	});
 

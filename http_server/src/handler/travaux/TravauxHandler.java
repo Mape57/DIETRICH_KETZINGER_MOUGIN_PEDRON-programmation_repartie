@@ -1,4 +1,4 @@
-package handler.restaurant;
+package handler.travaux;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -7,10 +7,10 @@ import tools.ExchangeContentSender;
 
 import java.io.IOException;
 
-public class GetRestaurantLocations implements HttpHandler {
+public class TravauxHandler implements HttpHandler {
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		String content = ServeurCentral.restaurant.getAllRestaurantPosition();
-		ExchangeContentSender.send(exchange, content);
+		String content = ServeurCentral.incident.getData();
+		ExchangeContentSender.send(exchange, content, 200);
 	}
 }
