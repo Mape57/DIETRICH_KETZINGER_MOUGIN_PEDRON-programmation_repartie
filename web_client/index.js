@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 	});
 
 
-	// Récupérer la liste des restaurants
-	const restaurantList = await fetchRestaurantList();
-	console.log(restaurantList)
+
+		// Récupérer la liste des restaurants
+		const restaurantList = await fetchRestaurantList();
 
 
 	// Ajouter les marqueurs des restaurants sans les détails
@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 			marker.bindPopup(popupContent).openPopup();
 		}
 	});
-
 
 	// Récupérer les données des incidents et ajouter les marqueurs
 	const incidentData = await fetchIncidentData();
@@ -41,8 +40,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-function createPopupContent(details) {
-	return `
+	function createPopupContent(details) {
+		return `
 			<div style="width: 250px;">
 				<img src="${details.imageUrl}" alt="Image du restaurant" style="width: 100%;">
 				<h3>${details.nomResto}</h3>
