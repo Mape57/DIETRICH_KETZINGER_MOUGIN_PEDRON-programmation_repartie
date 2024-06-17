@@ -7,32 +7,27 @@ import {fetchSchoolData} from "./recup_ecoles.js"; // Importer la nouvelle fonct
 document.addEventListener('DOMContentLoaded', async () => {
 	const map = initMap();
 
+	let restaurantMarkers = [];
+	let veloMarkers = [];
+	let incidentMarkers = [];
+
 	// Récupérer les données des vélos et ajouter les marqueurs
 	const veloCoordinates = await fetchVeloData();
-	addMarkersToMap(map, veloCoordinates, redIcon, (station, marker) => {
-		const popupContent = createVeloPopupContent(station);
-		marker.bindPopup(popupContent).openPopup();
-	});
-
-	// Récupérer la liste des restaurants
-	const restaurantList = await fetchRestaurantList();
-
-	// Ajouter les marqueurs des restaurants sans les détails
-	addMarkersToMap(map, restaurantList, blueIcon, async (restaurant, marker) => {
-		const details = await fetchRestaurantDetails(restaurant.idResto);
-		if (details) {
-			const popupContent = createPopupContent(details);
-			marker.bindPopup(popupContent).openPopup();
-		}
-	});
+	veloMarkers = addMarkersToMap(map, veloCoordinates, redIcon, (coord) => {createVeloPopupContent(coord)});
 
 	// Récupérer les données des incidents et ajouter les marqueurs
 	const incidentData = await fetchIncidentData();
-	addMarkersToMap(map, incidentData, yellowIcon, (incident, marker) => {
-		const popupContent = createIncidentPopupContent(incident);
-		marker.bindPopup(popupContent);
-		marker.on('click', () => {
-			marker.openPopup();
+	incidentMarkers = addMarkersToMap(map, incidentData, yellowIcon, (incident) => {createIncidentPopupContent(incident)});
+
+	// Récupérer la liste des restaurants et ajouter les marqueurs
+	const restaurantList = await fetchRestaurantList();
+	restaurantMarkers = addMarkersToMap(map, restaurantList, blueIcon, (restaurant, marker) => {
+		marker.on('click', async () => {
+			const details = await fetchRestaurantDetails(restaurant.idResto);
+			if (details) {
+				const popupContent = createPopupContent(details);
+				marker.bindPopup(popupContent).openPopup();
+			}
 		});
 	});
 
@@ -42,6 +37,38 @@ document.addEventListener('DOMContentLoaded', async () => {
 		const popupContent = createSchoolPopupContent(school);
 		marker.bindPopup(popupContent);
 	});
+
+	// Fonction pour afficher ou masquer les marqueurs
+	function toggleMarkers(markers, show) {
+		markers.forEach(marker => {
+			if (show) {
+				marker.addTo(map);
+			} else {
+				map.removeLayer(marker);
+			}
+		});
+	}
+
+	// Écouter les changements d'état des cases à cocher
+	document.getElementById('toggleRestaurants').addEventListener('change', (e) => {
+		toggleMarkers(restaurantMarkers, e.target.checked);
+	});
+
+	document.getElementById('toggleVelo').addEventListener('change', (e) => {
+		toggleMarkers(veloMarkers, e.target.checked);
+	});
+
+	document.getElementById('toggleIncidents').addEventListener('change', (e) => {
+		toggleMarkers(incidentMarkers, e.target.checked);
+	});
+
+	// Initial state: hide all markers
+	document.getElementById('toggleRestaurants').checked = true;
+	document.getElementById('toggleVelo').checked = false;
+	document.getElementById('toggleIncidents').checked = false;
+	toggleMarkers(restaurantMarkers, true);
+	toggleMarkers(veloMarkers, false);
+	toggleMarkers(incidentMarkers, false);
 });
 
 function createPopupContent(details) {

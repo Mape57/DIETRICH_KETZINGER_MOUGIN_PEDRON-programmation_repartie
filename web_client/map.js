@@ -49,15 +49,19 @@ export var greenIcon = L.icon({
 	shadowSize: [41, 41]  // taille de l'ombre
 });
 
-export function addMarkersToMap(map, coordinates, icon, onClick) {
-	coordinates.forEach(coord => {
+export function addMarkersToMap(map, coordinates, icon, createPopupContent) {
+	const markers = coordinates.map(coord => {
 		if (coord.lat !== undefined && coord.lon !== undefined) {
-			const marker = L.marker([coord.lat, coord.lon], { icon: icon }).addTo(map);
-			if (onClick) {
-				marker.on('click', () => onClick(coord, marker));
+			const marker = L.marker([coord.lat, coord.lon], { icon: icon });
+			const popupContent = createPopupContent(coord, marker);
+			if (popupContent) {
+				marker.bindPopup(popupContent);
 			}
+			return marker;
 		} else {
 			console.error('Coordonnées invalides pour le marqueur:', coord);
+			return null;
 		}
 	});
+	return markers.filter(marker => marker !== null);
 }
