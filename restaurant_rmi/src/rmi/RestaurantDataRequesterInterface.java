@@ -1,11 +1,12 @@
 package rmi;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public interface RestaurantDataRequesterInterface extends Remote {
+public interface RestaurantDataRequesterInterface extends DataRequesterInterface {
 	String getPossibleReservation(int idResto, int nbConviv, LocalDate date) throws RemoteException;
 
 	String postReservation(int idResto, String nom, String prenom, int nbConviv, String numTel, LocalDateTime date) throws RemoteException;

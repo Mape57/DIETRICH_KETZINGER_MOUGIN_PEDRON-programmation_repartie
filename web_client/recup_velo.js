@@ -4,8 +4,11 @@ export function fetchVeloData() {
 		.then(data => {
 			// Récupérer toutes les coordonnées
 			return data.data.stations.map(station => ({
+				address: station.address,
+				capacity: station.capacity,
 				lat: station.lat,
 				lon: station.lon
+
 			}));
 		})
 		.catch(error => {
