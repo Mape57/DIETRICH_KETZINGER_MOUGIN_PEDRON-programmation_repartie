@@ -11,24 +11,28 @@ import { displayMeteo } from "./script/affichage/aff_meteo";
 document.addEventListener('DOMContentLoaded', async () => {
 	const map = initMap();
 
-	const meteo = await fetchMeteo();
-	displayMeteo(meteo);
 
 	let restaurantMarkers = [];
 	let veloMarkers = [];
 	let incidentMarkers = [];
 	let schoolMarkers = [];
 
-	const veloCoordinates = await fetchVeloData();
+	const [veloCoordinates, incidentData, schoolCoordinates, restaurantList, meteo] = await Promise.all([
+		fetchVeloData(),
+		fetchIncidentData(),
+		fetchSchoolData(),
+		fetchRestaurantList(),
+		fetchMeteo()
+	]);
+
+	displayMeteo(meteo);
+
 	veloMarkers = addMarkersToMap(map, veloCoordinates, redIcon, (coord) => createVeloPopupContent(coord));
 
-	const incidentData = await fetchIncidentData();
 	incidentMarkers = addMarkersToMap(map, incidentData, yellowIcon, (incident) => createIncidentPopupContent(incident));
 
-	const schoolCoordinates = await fetchSchoolData();
 	schoolMarkers = addMarkersToMap(map, schoolCoordinates, greenIcon, (school) => createSchoolPopupContent(school));
 
-	const restaurantList = await fetchRestaurantList();
 	restaurantMarkers = addMarkersToMap(map, restaurantList, blueIcon, (restaurant, marker) => {
 		marker.on('click', async () => {
 			const details = await fetchRestaurantDetails(restaurant.idResto);
