@@ -56,7 +56,8 @@ export class RestaurantManager {
 		const rating = document.getElementById('restaurantRating').value;
 
 		if (name && address && rating) {
-			const coordonnees = { lat, lng };
+			const coordonnees = lat + ',' + lng;
+
 
 			envoieRestaurant(name, address, rating, coordonnees)
 				.then(response => {

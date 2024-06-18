@@ -1,3 +1,6 @@
+import {fetchRestaurantHours} from "../recuperation/recup_restaurants";
+
+
 export function generateStars(rating) {
 	const maxStars = 5;
 	const stars = (rating / 2);
@@ -22,19 +25,20 @@ export function generateStars(rating) {
 	return starsHtml;
 }
 
-
-export function createPopupContent(details) {
+export async function createPopupContent(details) {
 	const starsHtml = generateStars(details.note);
+	const { ouvert } = await fetchRestaurantHours(details.idResto);
+	const etatOuverture = ouvert ? "Ouvert" : "Fermé";
+
 	return `
         <div style="width: 250px;">
             <img src="${details.imageUrl}" alt="Image du restaurant" style="width: 100%;">
             <h3>${details.nomResto}</h3>
-            <div>Note : ${details.note}/10</div>
+            <div>Note: ${details.note}/10</div>
             <div>${starsHtml}</div>
-            <p>Adresse : ${details.adr}</p>
-            <p>État : Ouvert/Fermé</p>
-            <p>Horaires : 12:00 - 14:00, 19:00 - 22:00</p>
-            <button id="reserveButton" name=${details.idResto}>RÉSERVER</button>
+            <p>Adresse: ${details.adr}</p>
+            <p>État: ${etatOuverture}</p>
+            <button onclick="reserveRestaurant(${details.idResto})">RÉSERVER</button>
         </div>
     `;
 }
@@ -68,4 +72,8 @@ export function createSchoolPopupContent(school) {
             <p>Adresse: ${school.address}</p>
         </div>
     `;
+}
+
+export function reserveRestaurant(idResto) {
+	alert('Réservation pour le restaurant ' + idResto);
 }

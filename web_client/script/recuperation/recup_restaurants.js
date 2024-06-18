@@ -67,3 +67,31 @@ async function fetchRestaurantImage(restaurantName) {
 		return 'https://via.placeholder.com/250?text=Restaurant+Image';
 	}
 }
+
+
+// Fonction pour obtenir les horaires d'ouverture et de fermeture d'un restaurant
+export async function fetchRestaurantHours(idResto) {
+	return fetch(`${baseURL}/restaurants/${idResto}/horaires`)
+		.then(response => response.json())
+		.then(data => {
+			const jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+			const aujourdhui = new Date().getDay();
+			const jourActuel = jours[aujourdhui];
+			const horaires = data[jourActuel] || null;
+			if (horaires) {
+				const maintenant = new Date();
+				const heureActuelle = maintenant.getHours();
+				const ouvert = horaires.some(([debut, fin]) => heureActuelle >= debut && heureActuelle < fin);
+				return { ouvert };
+			} else {
+				return { ouvert: false };
+			}
+		})
+		.catch(error => {
+			console.error(`Erreur lors de la récupération des horaires du restaurant ${idResto}:`, error);
+			return { ouvert: false };
+		});
+}
+
+
+
