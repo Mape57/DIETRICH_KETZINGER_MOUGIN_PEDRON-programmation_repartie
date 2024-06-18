@@ -1,5 +1,6 @@
 import { blueIcon } from './mapIcons.js';
 import { createPopupContent } from './popupContent.js';
+import { envoieRestaurant } from './envoie_Restaurant.js';
 
 export class RestaurantManager {
 	constructor(map, restaurantMarkers) {
@@ -57,21 +58,29 @@ export class RestaurantManager {
 		const rating = document.getElementById('restaurantRating').value;
 
 		if (name && address && rating) {
-			const newRestaurant = {
-				lat: lat,
-				lon: lng,
-				nomResto: name,
-				adr: address,
-				note: rating
-			};
+			const coordonnees = { lat, lng };
 
-			const newMarker = L.marker([lat, lng], { icon: blueIcon })
-				.bindPopup(createPopupContent(newRestaurant))
-				.addTo(this.map);
+			envoieRestaurant(name, address, rating, coordonnees)
+				.then(response => {
+					if (response) {
+						const newRestaurant = {
+							lat: lat,
+							lon: lng,
+							nomResto: name,
+							adr: address,
+							note: rating
+						};
 
-			this.restaurantMarkers.push(newMarker);
+						const newMarker = L.marker([lat, lng], { icon: blueIcon })
+							.bindPopup(createPopupContent(newRestaurant))
+							.addTo(this.map);
 
-			this.closeAddRestaurantForm();
+						this.restaurantMarkers.push(newMarker);
+						this.closeAddRestaurantForm();
+					} else {
+						alert('Erreur lors de l\'ajout du restaurant. Veuillez réessayer.');
+					}
+				});
 		} else {
 			alert('Veuillez remplir tous les champs.');
 		}
