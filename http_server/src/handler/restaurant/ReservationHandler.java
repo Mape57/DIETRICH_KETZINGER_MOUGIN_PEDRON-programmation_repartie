@@ -22,16 +22,21 @@ public class ReservationHandler implements HttpHandler {
 
 		String content = "";
 		// params.get("date") est dans le format "xxxx-xx-xx" ou "xxxx-xx-xx xx:xx:xx"
-		if (exchange.getRequestMethod().equals("GET")) {
+		if (exchange.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
+			exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+			exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, OPTIONS, POST");
+			exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+			exchange.sendResponseHeaders(204, -1);
+		} else if (exchange.getRequestMethod().equals("GET")) {
 			content = getPossibleReservation(params);
+			ExchangeContentSender.send(exchange, content, 200);
 		} else if (exchange.getRequestMethod().equals("POST")) {
 			byte[] body = exchange.getRequestBody().readAllBytes();
 			content = postReservation(new String(body));
+			ExchangeContentSender.send(exchange, content, 200);
 		} else {
 			ExchangeContentSender.send(exchange, "Les paramètres fournis ne sont pas corrects.", 400);
 		}
-
-		ExchangeContentSender.send(exchange, content, 200);
 	}
 
 	private String getPossibleReservation(Map<String, String> params) throws RemoteException {
