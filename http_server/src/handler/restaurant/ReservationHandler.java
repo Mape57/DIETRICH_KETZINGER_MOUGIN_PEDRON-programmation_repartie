@@ -2,6 +2,7 @@ package handler.restaurant;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.json.JSONObject;
 import serveur.ServeurCentral;
 import tools.ExchangeContentSender;
 import tools.QueryParser;
@@ -21,10 +22,11 @@ public class ReservationHandler implements HttpHandler {
 
 		String content = "";
 		// params.get("date") est dans le format "xxxx-xx-xx" ou "xxxx-xx-xx xx:xx:xx"
-		if (params.get("date").matches("\\d{4}-\\d{2}-\\d{2}")) {
+		if (exchange.getRequestMethod().equals("GET")) {
 			content = getPossibleReservation(params);
-		} else if (params.get("date").matches("\\d{4}-\\d{2}-\\d{2}_\\d{2}:\\d{2}:\\d{2}")) {
-			content = postReservation(params);
+		} else if (exchange.getRequestMethod().equals("POST")) {
+			byte[] body = exchange.getRequestBody().readAllBytes();
+			content = postReservation(new String(body));
 		} else {
 			ExchangeContentSender.send(exchange, "Les paramètres fournis ne sont pas corrects.", 400);
 		}
@@ -40,15 +42,15 @@ public class ReservationHandler implements HttpHandler {
 		return ServeurCentral.restaurant.getPossibleReservation(idResto, nbConviv, date);
 	}
 
-	private String postReservation(Map<String, String> params) throws RemoteException {
-		int idResto = Integer.parseInt(params.get("idResto"));
-		String nom = params.get("nom");
-		String prenom = params.get("prenom");
-		int nbConviv = Integer.parseInt(params.get("nbConviv"));
-		String numTel = params.get("numTel");
+	private String postReservation(String body) throws RemoteException {
+		JSONObject json = new JSONObject(body);
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");
-		LocalDateTime date = LocalDateTime.parse(params.get("date"), formatter);
+		int idResto = json.getInt("idResto");
+		String nom = json.getString("nom");
+		String prenom = json.getString("prenom");
+		int nbConviv = json.getInt("nbConviv");
+		String numTel = json.getString("numTel");
+		LocalDateTime date = LocalDateTime.parse(json.getString("date"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
 		return ServeurCentral.restaurant.postReservation(idResto, nom, prenom, nbConviv, numTel, date);
 	}
