@@ -1,6 +1,5 @@
 import {fetchRestaurantHours} from "../recuperation/recup_restaurants";
 
-
 export function generateStars(rating) {
 	const maxStars = 5;
 	const stars = (rating / 2);
@@ -27,9 +26,10 @@ export function generateStars(rating) {
 
 export async function createPopupContent(details) {
 	const starsHtml = generateStars(details.note);
-	const { ouvert } = await fetchRestaurantHours(details.idResto);
+	console.log(details.idResto);
+	const {ouvert} = await fetchRestaurantHours(details.idResto);
 	const etatOuverture = ouvert ? "Ouvert" : "Fermé";
-
+// <p>État: ${etatOuverture}</p>
 	return `
         <div style="width: 250px;">
             <img src="${details.imageUrl}" alt="Image du restaurant" style="width: 100%;">
@@ -37,7 +37,6 @@ export async function createPopupContent(details) {
             <div>Note: ${details.note}/10</div>
             <div>${starsHtml}</div>
             <p>Adresse: ${details.adr}</p>
-            <p>État: ${etatOuverture}</p>
             <button onclick="reserveRestaurant(${details.idResto})">RÉSERVER</button>
         </div>
     `;
