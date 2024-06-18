@@ -7,6 +7,8 @@ import { fetchIncidentData } from "./recup_incidents.js";
 import { fetchSchoolData } from "./recup_ecoles.js";
 import { fetchMeteo } from "./script/recuperation/recup_meteo";
 import { displayMeteo } from "./script/affichage/aff_meteo";
+import { RestaurantManager } from './RestaurantManager.js';
+
 
 document.addEventListener('DOMContentLoaded', async () => {
 	const map = initMap();
@@ -104,5 +106,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 	toggleMarkers(veloMarkers, false);
 	toggleMarkers(incidentMarkers, false);
 	toggleMarkers(schoolMarkers, false);
+
+	// Initialiser le gestionnaire de restaurants
+	window.restaurantManager = new RestaurantManager(map, restaurantMarkers);
+
 	updateButtonState();
 });
