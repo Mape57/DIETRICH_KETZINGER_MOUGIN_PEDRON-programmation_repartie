@@ -44,18 +44,20 @@ public class Restaurant {
 		ResultSet rs = s.executeQuery("SELECT MAX(IDRESTO) FROM RESTAURANTS");
 		rs.next();
 		this.idResto = rs.getInt(1);
+		s.close();
 		return true;
 	}
 
 	public static List<Restaurant> getAll() throws SQLException {
 		Connection connection = RestaurantDB.getConnection();
-		Statement rs = connection.createStatement();
-		ResultSet result = rs.executeQuery("SELECT * FROM RESTAURANTS");
+		Statement s = connection.createStatement();
+		ResultSet result = s.executeQuery("SELECT * FROM RESTAURANTS");
 
 		List<Restaurant> restaurants = new ArrayList<>();
 		while (result.next()) {
 			restaurants.add(new Restaurant(result.getInt("idResto"), result.getString("nomResto"), result.getString("adr"), result.getString("coordonnees"), result.getInt("note")));
 		}
+		s.close();
 		return restaurants;
 	}
 
@@ -79,11 +81,13 @@ public class Restaurant {
 
 	public static Restaurant getById(int idResto) throws SQLException {
 		Connection connection = RestaurantDB.getConnection();
-		Statement rs = connection.createStatement();
-		ResultSet result = rs.executeQuery("SELECT * FROM RESTAURANTS WHERE idResto = " + idResto);
+		Statement s = connection.createStatement();
+		ResultSet result = s.executeQuery("SELECT * FROM RESTAURANTS WHERE idResto = " + idResto);
 
 		if (!result.next()) return null;
-		return new Restaurant(result.getInt("idResto"), result.getString("nomResto"), result.getString("adr"), result.getString("coordonnees"), result.getInt("note"));
+		Restaurant restaurant = new Restaurant(result.getInt("idResto"), result.getString("nomResto"), result.getString("adr"), result.getString("coordonnees"), result.getInt("note"));
+		s.close();
+		return restaurant;
 	}
 
 	public int getIdResto() {
