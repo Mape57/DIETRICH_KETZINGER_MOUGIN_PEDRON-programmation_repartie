@@ -1,4 +1,4 @@
-import {fetchRestaurantHours} from "../recuperation/recup_restaurants";
+import { fetchRestaurantHours, fetchAllRestaurantHours } from '../recuperation/recup_restaurants.js';
 
 export function generateStars(rating) {
 	const maxStars = 5;
@@ -26,8 +26,7 @@ export function generateStars(rating) {
 
 export async function createPopupContent(details) {
 	const starsHtml = generateStars(details.note);
-	console.log(details.idResto);
-	const {ouvert} = await fetchRestaurantHours(details.idResto);
+	const { ouvert } = await fetchRestaurantHours(details.idResto);
 	const etatOuverture = ouvert ? "Ouvert" : "Fermé";
 
 	return `
@@ -39,6 +38,8 @@ export async function createPopupContent(details) {
             <p>Adresse: ${details.adr}</p>
             <p>État: ${etatOuverture}</p>
             <button onclick="reserveRestaurant(${details.idResto})">RÉSERVER</button>
+            <button onclick="afficherHoraires(${details.idResto})">Voir les horaires</button>
+            <div id="horaires-${details.idResto}" style="display:none;"></div>
         </div>
     `;
 }
@@ -77,3 +78,22 @@ export function createSchoolPopupContent(school) {
 export function reserveRestaurant(idResto) {
 	alert('Réservation pour le restaurant ' + idResto);
 }
+
+export async function afficherHoraires(idResto) {
+	const horaires = await fetchAllRestaurantHours(idResto);
+	const jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+	let horairesHtml = '<ul>';
+
+	for (const jour of jours) {
+		if (horaires[jour]) {
+			horairesHtml += `<li>${jour}: ${horaires[jour].map(h => `${h[0]}h - ${h[1]}h`).join(', ')}</li>`;
+		} else {
+			horairesHtml += `<li>${jour}: Fermé</li>`;
+		}
+	}
+	horairesHtml += '</ul>';
+
+	document.getElementById(`horaires-${idResto}`).innerHTML = horairesHtml;
+	document.getElementById(`horaires-${idResto}`).style.display = 'block';
+}
+
