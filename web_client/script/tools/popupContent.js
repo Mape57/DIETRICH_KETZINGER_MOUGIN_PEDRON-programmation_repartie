@@ -29,7 +29,7 @@ export async function createPopupContent(details) {
 	console.log(details.idResto);
 	const {ouvert} = await fetchRestaurantHours(details.idResto);
 	const etatOuverture = ouvert ? "Ouvert" : "Fermé";
-// <p>État: ${etatOuverture}</p>
+
 	return `
         <div style="width: 250px;">
             <img src="${details.imageUrl}" alt="Image du restaurant" style="width: 100%;">
@@ -37,6 +37,7 @@ export async function createPopupContent(details) {
             <div>Note: ${details.note}/10</div>
             <div>${starsHtml}</div>
             <p>Adresse: ${details.adr}</p>
+            <p>État: ${etatOuverture}</p>
             <button onclick="reserveRestaurant(${details.idResto})">RÉSERVER</button>
         </div>
     `;
