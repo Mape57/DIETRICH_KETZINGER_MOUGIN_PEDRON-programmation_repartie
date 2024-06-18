@@ -17,11 +17,25 @@ export function fetchRestaurantList() {
 		});
 }
 
+export async function fetchRestaurantHoraires(idResto, dateR, nbConviv) {
+	return fetch(`http://localhost:8080/reservation?date=${dateR}&idResto=${idResto}&nbConviv=${nbConviv}`)
+		.then(response => response.json())
+		.then(data => {
+			return data;
+		})
+		.catch(error => {
+			console.error(`Erreur lors de la récupération des horaires du restaurant ${idResto}:`, error);
+			return null;
+		});
+}
+
 // Récupère les détails d'un restaurant par son ID et ajoute une image de Unsplash
 export async function fetchRestaurantDetails(idResto) {
 	return fetch(`http://localhost:8080/restaurants/${idResto}`)
 		.then(response => response.json())
 		.then(async data => {
+			console.log("data");
+			console.log(await data);
 			const [lat, lon] = data.coordonnees.split(',').map(Number);
 			const imageUrl = await fetchRestaurantImage(data.nomResto);
 			return {
