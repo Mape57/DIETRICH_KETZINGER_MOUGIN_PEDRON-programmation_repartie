@@ -63,6 +63,7 @@ export class RestaurantManager {
 				.then(response => {
 					if (response) {
 						const newRestaurant = {
+							idResto: response.idResto,
 							lat: lat,
 							lon: lng,
 							nomResto: name,

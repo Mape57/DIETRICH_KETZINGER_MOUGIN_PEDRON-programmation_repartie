@@ -69,7 +69,6 @@ async function fetchRestaurantImage(restaurantName) {
 }
 
 
-// Fonction pour obtenir les horaires d'ouverture et de fermeture d'un restaurant
 export async function fetchRestaurantHours(idResto) {
 	return fetch(`${baseURL}/restaurants/${idResto}/horaires`)
 		.then(response => response.json())
