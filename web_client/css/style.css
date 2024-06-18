@@ -2,97 +2,83 @@
     font-family: Roboto, sans-serif;
 }
 
-#map {
-    height: 100vh;
+#carte {
     position: relative;
+    margin: 3vh;
 }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f8f9fa;
-    padding: 10px;
-}
-
-nav img {
-    width: 50px;
-    height: 50px;
-    margin: 10px;
-}
-
-nav h1 {
+#map {
+    height: 94vh;
+    z-index: 0;
+    position: relative;
+    border-radius: 1rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .2);
 }
 
 #controls {
     position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    right: 0;
+    z-index: 1;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0 1rem 0 1rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .2);
+
     display: flex;
-    justify-content: space-between;
-    width: 600px; /* Set the width of the container */
-    margin: 0;
-    padding: 10px;
-    background-color: rgba(255, 255, 255);
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure it is above the map */
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.filter-btn {
-    margin: 0 5px;
-    padding: 10px;
-    width: 130px; /* Set a fixed width for the buttons */
-    background-color: lightgray;
-    border: 3px solid white;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    text-align: center; /* Center the text */
-    transition: all 0.3s ease;
+/* for each input hide it and show a picture */
+#controls > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.filter-btn input {
+#controls > div > input {
     display: none;
 }
 
-.filter-btn-restaurants {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-    box-shadow: 0 0 10px #007bff;
+#controls > div > label {
+    margin: .5rem 0;
 }
 
-.filter-btn-velos {
-    background-color: #dc3545;
-    color: white;
-    border-color: #dc3545;
-    box-shadow: 0 0 10px #dc3545;
+#controls > div > label.hide > span {
+    display: none;
 }
 
-.filter-btn-incidents {
-    background-color: #ffc107;
-    color: white;
-    border-color: #ffc107;
-    box-shadow: 0 0 10px #ffc107;
-}
-
-.filter-btn-ecoles {
-    background-color: #28a745;
-    color: white;
-    border-color: #28a745;
-    box-shadow: 0 0 10px #28a745;
-}
-
-.filter-btn label {
-    margin: 0;
-    padding: 0;
-    width: 100%;
+#controls > div > label > img {
+    height: 2rem;
     cursor: pointer;
-    display: inline-block; /* Ensure the label takes the full width */
+    transition-duration: .3s;
+    transition-property: filter;
 }
 
+#controls > div > label > img:hover {
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, .3));
+}
+
+#controls > div > input:checked + label > img.red {
+    filter: brightness(0) saturate(100%) invert(31%) sepia(53%) saturate(1488%) hue-rotate(319deg) brightness(85%) contrast(92%) drop-shadow(0 0 10px rgba(0, 0, 0, .3));
+}
+
+#controls > div > input:checked + label > img.green {
+    filter: brightness(0) saturate(100%) invert(50%) sepia(91%) saturate(342%) hue-rotate(57deg) brightness(98%) contrast(82%) drop-shadow(0 0 10px rgba(0, 0, 0, .3));
+}
+
+#controls > div > input:checked + label > img.blue {
+    filter: brightness(0) saturate(100%) invert(44%) sepia(82%) saturate(399%) hue-rotate(178deg) brightness(90%) contrast(86%) drop-shadow(0 0 10px rgba(0, 0, 0, .3));
+}
+
+#controls > div > input:checked + label > img.yellow {
+    filter: brightness(0) saturate(100%) invert(93%) sepia(79%) saturate(616%) hue-rotate(355deg) brightness(80%) contrast(92%) drop-shadow(0 0 10px rgba(0, 0, 0, .3));
+}
+
+#controls > div > input:checked + label > img.grey {
+    filter: opacity(50%) drop-shadow(0 0 10px rgba(0, 0, 0, .3));
+}
 
 #creation-restaurant {
     transition-duration: .3s;

@@ -78,6 +78,10 @@ export function displayMeteo(data) {
 	}
 
 	document.getElementById('meteo').innerHTML = meteo(meteoData);
+
+	document.getElementById('toggleMeteo').addEventListener('change', () => {
+		document.getElementById('meteo_week').classList.toggle('show');
+	});
 }
 
 function dateToString(date) {
