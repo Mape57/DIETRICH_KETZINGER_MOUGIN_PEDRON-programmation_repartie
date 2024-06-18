@@ -31,12 +31,14 @@ public class Table {
 		Statement s = connection.createStatement();
 		ResultSet rs = s.executeQuery("SELECT * FROM TABLES WHERE IDRESTO = " + idResto + " AND NBPLACES >= " + nbConviv + " ORDER BY NBPLACES");
 
+		Table table = null;
 		while (rs.next()) {
 			if (Reservation.isTableLibre(rs.getInt("IDTABLE"), date)) {
-				return new Table(rs.getInt("IDTABLE"), rs.getInt("IDRESTO"), rs.getInt("NUMTABLE"), rs.getInt("NBPLACES"));
+				table = new Table(rs.getInt("IDTABLE"), rs.getInt("IDRESTO"), rs.getInt("NUMTABLE"), rs.getInt("NBPLACES"));
 			}
 		}
-		return null;
+		s.close();
+		return table;
 	}
 
 	public int getIdTable() {

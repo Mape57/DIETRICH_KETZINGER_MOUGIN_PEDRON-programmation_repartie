@@ -29,12 +29,12 @@ export function createPopupContent(details) {
         <div style="width: 250px;">
             <img src="${details.imageUrl}" alt="Image du restaurant" style="width: 100%;">
             <h3>${details.nomResto}</h3>
-            <div>Note: ${details.note}/10</div>
+            <div>Note : ${details.note}/10</div>
             <div>${starsHtml}</div>
-            <p>Adresse: ${details.adr}</p>
-            <p>État: Ouvrir/Fermer</p>
-            <p>Horaires: 12:00 - 14:00, 19:00 - 22:00</p>
-            <button onclick="reserveRestaurant(${details.idResto})">RÉSERVER</button>
+            <p>Adresse : ${details.adr}</p>
+            <p>État : Ouvert/Fermé</p>
+            <p>Horaires : 12:00 - 14:00, 19:00 - 22:00</p>
+            <button id="button" name=${details.idResto}>RÉSERVER</button>
         </div>
     `;
 }

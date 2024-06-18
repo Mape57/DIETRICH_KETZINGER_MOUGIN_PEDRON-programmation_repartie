@@ -36,7 +36,9 @@ public class Horaire {
 		Statement s = connection.createStatement();
 		ResultSet rs = s.executeQuery("SELECT * FROM HORAIRES WHERE idResto = " + idResto + " AND jour = '" + jour + "'");
 
-		return resultToList(rs);
+		List<Horaire> horaires = resultToList(rs);
+		s.close();
+		return horaires;
 	}
 
 	public static List<Horaire> getHoraire(int idResto) throws SQLException {
@@ -44,7 +46,9 @@ public class Horaire {
 		Statement s = connection.createStatement();
 		ResultSet rs = s.executeQuery("SELECT * FROM HORAIRES WHERE idResto = " + idResto);
 
-		return resultToList(rs);
+		List<Horaire> horaires = resultToList(rs);
+		s.close();
+		return horaires;
 	}
 
 	private static List<Horaire> resultToList(ResultSet rs) throws SQLException {

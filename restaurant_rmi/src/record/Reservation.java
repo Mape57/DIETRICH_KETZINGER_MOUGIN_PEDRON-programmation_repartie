@@ -41,7 +41,9 @@ public class Reservation {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String dateStr = date.format(formatter);
 
-		return !s.executeQuery("SELECT IDRESERV FROM RESERVATIONS WHERE IDTABLE = " + idTable + " AND to_date('" + dateStr + "', 'YYYY-MM-DD HH24:MI:SS') BETWEEN dateRes AND DATERES + INTERVAL '" + (DUREE_RESERVATION * 60 - 1) + "' MINUTE").next();
+		boolean res = !s.executeQuery("SELECT IDRESERV FROM RESERVATIONS WHERE IDTABLE = " + idTable + " AND to_date('" + dateStr + "', 'YYYY-MM-DD HH24:MI:SS') BETWEEN dateRes AND DATERES + INTERVAL '" + (DUREE_RESERVATION * 60 - 1) + "' MINUTE").next();
+		s.close();
+		return res;
 	}
 
 	public boolean save() throws SQLException {
@@ -57,6 +59,7 @@ public class Reservation {
 		ResultSet rs = s.executeQuery("SELECT MAX(IDRESERV) FROM RESERVATIONS");
 		rs.next();
 		this.idReserv = rs.getInt(1);
+		s.close();
 		return true;
 	}
 
