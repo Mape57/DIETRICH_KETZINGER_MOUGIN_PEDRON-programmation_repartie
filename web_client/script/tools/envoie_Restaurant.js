@@ -6,12 +6,12 @@ export function envoieRestaurant(nomResto, adr, note, coordonnees) {
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: {
+		body: JSON.stringify({
 			"nomResto": nomResto,
 			"adr": adr,
 			"note": note,
 			"coordonnees": coordonnees
-		}
+		})
 	})
 		.then(response => response.json())
 		.catch(error => {

@@ -13,7 +13,6 @@ import { RestaurantManager } from './script/tools/RestaurantManager.js';
 document.addEventListener('DOMContentLoaded', async () => {
 	const map = initMap();
 
-
 	let restaurantMarkers = [];
 	let veloMarkers = [];
 	let incidentMarkers = [];
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		marker.on('click', async () => {
 			const details = await fetchRestaurantDetails(restaurant.idResto);
 			if (details) {
-				const popupContent = createPopupContent(details);
+				const popupContent = await createPopupContent(details);
 				marker.bindPopup(popupContent).openPopup();
 			}
 		});
