@@ -20,7 +20,7 @@ body, html {
 }
 
 /* ===== Partie gauche ===== */
-#meteo_week > #days {
+#meteo_week > #today {
 	flex: 4;
 	display: flex;
 	flex-direction: column;
@@ -29,14 +29,14 @@ body, html {
 }
 
 /* Jour courant */
-#days > #current_day {
+#today > #current_day {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	flex-grow: 1;
 }
 
-#days > #current_day > h1 {
+#today > #current_day > h1 {
 	margin: 0;
 	font-size: 10rem;
 }
@@ -47,23 +47,23 @@ body, html {
 }
 
 /* Liste des jours */
-#list_day {
+#list_hour {
 	display: flex;
 	justify-content: space-between;
 }
 
-#list_day > div {
+#list_hour > div {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-#list_day > div > p {
+#list_hour > div > p {
 	margin: .5rem;
 }
 
 /* ===== Partie droite ===== */
-#meteo_week > #hours {
+#meteo_week > #week {
 	padding: var(--meteo-padding);
 	flex: 1;
 	display: flex;
@@ -72,15 +72,23 @@ body, html {
 	align-items: flex-end;
 }
 
-#meteo_week > #hours > div {
+#meteo_week > #week > div {
 	display: flex;
 	gap: 1rem;
 }
 
-#meteo_week > #hours > div > p:last-child {
+#meteo_week > #week > div > p:last-child {
 	font-weight: bold;
 }
 
-#meteo_week > #hours > div > p {
+#meteo_week > #week > div > p {
 	margin: .5rem;
+}
+
+#meteo_week > #today > #list_hour > div > p:last-of-type {
+	font-weight: bold;
+}
+
+#meteo_week > #today > #list_hour > div > img {
+	width: 2rem;
 }

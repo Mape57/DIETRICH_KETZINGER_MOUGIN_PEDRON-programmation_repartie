@@ -28,7 +28,7 @@
 
 <script type="text/x-handlebars-template" id="meteo_template">
 	<div id="meteo_week">
-		<div id="days">
+		<div id="today">
 			{{#with current_day}}
 				<div id="current_day">
 					<h1>{{temp}}</h1>
@@ -39,16 +39,17 @@
 					</div>
 				</div>
 			{{/with}}
-			<div id="list_day">
+			<div id="list_hour">
 				{{#each hours}}
 					<div>
 						<p>{{heure}}</p>
 						<p>{{temp}}</p>
+						<img src="{{picto}}" alt="Descriptif">
 					</div>
 				{{/each}}
 			</div>
 		</div>
-		<div id="hours">
+		<div id="week">
 			{{#each days}}
 				<div {{#if current}}class="current_day"{{/if}}>
 					<p>{{jour}}</p>

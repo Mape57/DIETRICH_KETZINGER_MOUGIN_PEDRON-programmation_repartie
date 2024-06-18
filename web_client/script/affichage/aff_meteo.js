@@ -1,6 +1,14 @@
 import Handlebars from "handlebars";
 
 const weekday = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+const titleToPicto = {
+	"Orageux": "resources/meteo_picto/cloud-bolt-solid.svg",
+	"Pluvieux": "resources/meteo_picto/cloud-showers-heavy-solid.svg",
+	"Nuageux": "resources/meteo_picto/cloud-sun-solid.svg",
+	"Brumeux": "resources/meteo_picto/smog-solid.svg",
+	"Ensoleill&eacute;": "resources/meteo_picto/sun-solid.svg"
+}
+
 const meteo_template = document.getElementById('meteo_template');
 let meteo = Handlebars.compile(meteo_template.innerHTML);
 
@@ -31,7 +39,7 @@ export function displayMeteo(data) {
 			temp: Math.round((nowData.temperature['2m'] - 273.15)) + "°C",
 			heure: date.slice(11, 16),
 			jour: weekday[new Date(date).getDay()],
-			descr: estimateWeather(nowData)
+			descr: getWeatherPicto(nowData)
 		}
 	}
 
@@ -67,7 +75,8 @@ export function displayMeteo(data) {
 
 		meteoData.hours.push({
 			heure: dateToString(hour).slice(11, 16),
-			temp: Math.round((hourData.temperature['2m'] - 273.15)) + "°C"
+			temp: Math.round((hourData.temperature['2m'] - 273.15)) + "°C",
+			picto: titleToPicto[getWeatherPicto(hourData)]
 		});
 	}
 
@@ -84,7 +93,7 @@ function dateToString(date) {
 		+ (hour < 10 ? "0" : "") + hour + ":00:00";
 }
 
-function estimateWeather(data) {
+function getWeatherPicto(data) {
 	const totalCloudCover = data.nebulosite.totale;
 	const rain = data.pluie;
 	const humidity = data.humidite['2m'];
@@ -101,6 +110,6 @@ function estimateWeather(data) {
 	} else if (humidity > 90) {
 		return "Brumeux";
 	} else {
-		return "Ensoleillé";
+		return "Ensoleill&eacute;";
 	}
 }
