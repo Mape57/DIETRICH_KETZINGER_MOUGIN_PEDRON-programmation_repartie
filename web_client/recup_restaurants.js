@@ -1,9 +1,11 @@
+import {baseURL} from "./script/config";
+
 const UNSPLASH_ACCESS_KEY = 'demande a ta mere'; // Remplacez par votre clé API
 let imageIndex = 0; // Compteur global pour suivre l'index des images
 
 // Récupère la liste des restaurants avec leurs coordonnées
 export function fetchRestaurantList() {
-	return fetch("http://localhost:8080/restaurants")
+	return fetch(`${baseURL}/restaurants`)
 		.then(response => response.json())
 		.then(data => {
 			return data.map(station => {
@@ -31,7 +33,7 @@ export async function fetchRestaurantHoraires(idResto, dateR, nbConviv) {
 
 // Récupère les détails d'un restaurant par son ID et ajoute une image de Unsplash
 export async function fetchRestaurantDetails(idResto) {
-	return fetch(`http://localhost:8080/restaurants/${idResto}`)
+	return fetch(`${baseURL}/restaurants/${idResto}`)
 		.then(response => response.json())
 		.then(async data => {
 			console.log("data");

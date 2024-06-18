@@ -1,3 +1,12 @@
+import { initMap, addMarkersToMap } from './map.js';
+import { redIcon, blueIcon, yellowIcon, greenIcon } from './mapIcons.js';
+import { createPopupContent, createVeloPopupContent, createIncidentPopupContent, createSchoolPopupContent, reserveRestaurant } from './popupContent.js';
+import { fetchVeloData } from './recup_velo.js';
+import { fetchRestaurantList, fetchRestaurantDetails } from './recup_restaurants.js';
+import { fetchIncidentData } from "./recup_incidents.js";
+import { fetchSchoolData } from "./recup_ecoles.js";
+import { fetchMeteo } from "./script/recuperation/recup_meteo";
+import { displayMeteo } from "./script/affichage/aff_meteo";
 import {initMap, addMarkersToMap, redIcon, blueIcon, yellowIcon} from './map.js';
 import {fetchVeloData} from './recup_velo.js';
 import {fetchRestaurantList, fetchRestaurantDetails, fetchRestaurantHoraires} from './recup_restaurants.js';
@@ -8,15 +17,32 @@ const modal = document.getElementById('modal');
 document.addEventListener('DOMContentLoaded', async () => {
 	const map = initMap();
 
-	// Récupérer les données des vélos et ajouter les marqueurs
+	const meteo = await fetchMeteo();
+	displayMeteo(meteo);
+
+	let restaurantMarkers = [];
+	let veloMarkers = [];
+	let incidentMarkers = [];
+	let schoolMarkers = [];
+
 	const veloCoordinates = await fetchVeloData();
-	addMarkersToMap(map, veloCoordinates, redIcon, (station, marker) => {
-		const popupContent = createVeloPopupContent(station);
-		marker.bindPopup(popupContent).openPopup();
-	});
+	veloMarkers = addMarkersToMap(map, veloCoordinates, redIcon, (coord) => createVeloPopupContent(coord));
 
+	const incidentData = await fetchIncidentData();
+	incidentMarkers = addMarkersToMap(map, incidentData, yellowIcon, (incident) => createIncidentPopupContent(incident));
 
+	const schoolCoordinates = await fetchSchoolData();
+	schoolMarkers = addMarkersToMap(map, schoolCoordinates, greenIcon, (school) => createSchoolPopupContent(school));
 
+	const restaurantList = await fetchRestaurantList();
+	restaurantMarkers = addMarkersToMap(map, restaurantList, blueIcon, (restaurant, marker) => {
+		marker.on('click', async () => {
+			const details = await fetchRestaurantDetails(restaurant.idResto);
+			if (details) {
+				const popupContent = createPopupContent(details);
+				marker.bindPopup(popupContent).openPopup();
+			}
+		});
 		// Récupérer la liste des restaurants
 		const restaurantList = await fetchRestaurantList();
 
@@ -34,17 +60,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 		}
 	});
 
-	// Récupérer les données des incidents et ajouter les marqueurs
-	const incidentData = await fetchIncidentData();
-	addMarkersToMap(map, incidentData, yellowIcon, (incident, marker) => {
-		const popupContent = createIncidentPopupContent(incident);
-		marker.bindPopup(popupContent);
-		marker.on('click', () => {
-			marker.openPopup();
+	function toggleMarkers(markers, show) {
+		markers.forEach(marker => {
+			if (show) {
+				marker.addTo(map);
+			} else {
+				map.removeLayer(marker);
+			}
 		});
-	});
-});
+	}
 
+	document.getElementById('toggleRestaurants').addEventListener('change', (e) => {
+		toggleMarkers(restaurantMarkers, e.target.checked);
+	});
+
+	document.getElementById('toggleVelo').addEventListener('change', (e) => {
+		toggleMarkers(veloMarkers, e.target.checked);
+	});
+
+	document.getElementById('toggleIncidents').addEventListener('change', (e) => {
+		toggleMarkers(incidentMarkers, e.target.checked);
+	});
 
 function createPopupContent(details) {
 		return `
@@ -59,7 +95,19 @@ function createPopupContent(details) {
 			</div>
 		`;
 }
+	document.getElementById('toggleSchools').addEventListener('change', (e) => {
+		toggleMarkers(schoolMarkers, e.target.checked);
+	});
 
+	document.getElementById('toggleRestaurants').checked = true;
+	document.getElementById('toggleVelo').checked = false;
+	document.getElementById('toggleIncidents').checked = false;
+	document.getElementById('toggleSchools').checked = false;
+	toggleMarkers(restaurantMarkers, true);
+	toggleMarkers(veloMarkers, false);
+	toggleMarkers(incidentMarkers, false);
+	toggleMarkers(schoolMarkers, false);
+});
 function createVeloPopupContent(station) {
 	return `
 			<div style="width: 250px;">

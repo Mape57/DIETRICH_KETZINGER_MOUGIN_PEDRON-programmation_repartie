@@ -6,7 +6,6 @@ import serveur.ServeurCentral;
 import tools.ExchangeContentSender;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class RestaurantByIdHandler implements HttpHandler {
 	@Override
@@ -17,7 +16,6 @@ public class RestaurantByIdHandler implements HttpHandler {
 		String content;
 
 		if (pathParts[pathParts.length - 1].equals("horaires")) {
-			System.out.println(Arrays.toString(pathParts));
 			int id = Integer.parseInt(pathParts[pathParts.length - 2]);
 			content = ServeurCentral.restaurant.getRestaurantHoraires(id);
 		} else {
