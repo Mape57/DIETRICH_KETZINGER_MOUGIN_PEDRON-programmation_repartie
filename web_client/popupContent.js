@@ -34,7 +34,7 @@ export function createPopupContent(details) {
             <p>Adresse : ${details.adr}</p>
             <p>État : Ouvert/Fermé</p>
             <p>Horaires : 12:00 - 14:00, 19:00 - 22:00</p>
-            <button id="button" name=${details.idResto}>RÉSERVER</button>
+            <button id="reserveButton" name=${details.idResto}>RÉSERVER</button>
         </div>
     `;
 }
@@ -68,8 +68,4 @@ export function createSchoolPopupContent(school) {
             <p>Adresse: ${school.address}</p>
         </div>
     `;
-}
-
-export function reserveRestaurant(idResto) {
-	alert('Réservation pour le restaurant ' + idResto);
 }

@@ -35,25 +35,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 			if (details) {
 				const popupContent = createPopupContent(details);
 				marker.bindPopup(popupContent).openPopup();
-			}
-		});
-	});
-
-
-		// Ajouter les marqueurs des restaurants sans les détails
-		addMarkersToMap(map, restaurantList, blueIcon, async (restaurant, marker) => {
-			const details = await fetchRestaurantDetails(restaurant.idResto);
-			if (details) {
-				const popupContent = createPopupContent(details);
-				marker.bindPopup(popupContent).openPopup();
-				var button = document.getElementById('button');
-				console.log('POP UP : ajout du bouton' + button);
+				var button = document.getElementById('reserveButton');
+				console.log('POP UP : ajout du bouton' + button.name);
 				button.addEventListener('click', () => {
-					console.log('POP UP : ajout du bouton');
+					console.log('EVENTLISTENER');
 					reserveRestaurant(button.name);
 				});
 			}
 		});
+	});
 
 		function toggleMarkers(markers, show) {
 			markers.forEach(marker => {
@@ -91,10 +81,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 		toggleMarkers(schoolMarkers, false);
 	});
 
+
 // On ouvre une fenêtre pour la réservation
 	async function reserveRestaurant(idResto) {
 		console.log('Réservation du restaurant ' + idResto);
 		const details = await fetchRestaurantDetails(idResto);
+		var nom;
+		var prenom;
+		var tel;
+		var nbConviv;
+		var dateReserv;
+		var heureReserv;
 
 		console.log('Details du resto ' + idResto + ' : ' + details);
 
@@ -316,6 +313,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             </tr>
         </tbody>
     </table>
+    <div class="form">
+    		<tr>Nom : </tr>
+    		<input type="text" id="Nom">
+    		<tr>Prénom : </tr>
+            <input type="text" id="Prénom">
+            <tr>Numéro de téléphone : </tr>
+            <input type="number" id="Numéro de téléphone" min="10" max="9999999999">
+            <tr>Nombre de convives : </tr>
+            <input type="number" id="Nombre de convives" min="2" max="99">
+            <tr>Date de réservation : </tr>
+            <input type="date" id="Date de réservation" min="">
+            <tr>Heure de réservation : </tr>
+            <input type="number" id="Heure de réservation" min="6" max="24">
+         	<tr></tr>
+            <button id="submit">Valider</button>
+            </div>
 			</div>
 			</div>
 			`;
@@ -326,8 +339,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 			modal.style.display = 'none';
 		});
 
-		let dateJour = new Date();
-		dateJour = dateJour.toISOString().split('T')[0];
+		let dateJour = new Date().toISOString().split('T')[0];
+		document.getElementById('Date de réservation').setAttribute('min', dateJour);
 		console.log('Date du jour : ' + dateJour);
 		let jours = ['LUNDI', 'MARDI', 'MERCREDI', 'JEUDI', 'VENDREDI', 'SAMEDI', 'DIMANCHE'];
 		let nbJour = 0;
@@ -361,7 +374,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 		var dispo = [];
 		for (let i = nbJour; i < 7; i++) {
 			dispo[i] = await fetchRestaurantHoraires(idResto, dateJour, 0);
-			console.log('Disponibilité du ' + dateJour + 'du resto ' + idResto + ' : ' + dispo[i]);
 			dateJour = new Date(dateJour);
 			dateJour.setDate(dateJour.getDate() + 1);
 			dateJour = dateJour.toISOString().split('T')[0];
@@ -371,10 +383,44 @@ document.addEventListener('DOMContentLoaded', async () => {
 		for (let i = nbJour; i < 7; i++) {
 			for (let j = 0; j < dispo[i].length; j++) {
 				let heure = dispo[i][j].split('T')[1].split(':')[0];
-				console.log('Heure traitée ' + heure);
-				console.log('Jour traité ' + jours[i]);
 				document.getElementById(heure + jours[i]).checked = false;
 				document.getElementById(heure + jours[i]).disabled = false;
 			}
 		}
+
+
+
+		document.getElementById('Nom').addEventListener('change', (e) => {
+			nom = e.target.value;
+		});
+		document.getElementById('Prénom').addEventListener('change', (e) => {
+			prenom = e.target.value;
+		});
+		document.getElementById('Numéro de téléphone').addEventListener('change', (e) => {
+			if(e.target.value.length === 10) {
+				tel = e.target.value;
+			}
+		});
+		document.getElementById('Nombre de convives').addEventListener('change', (e) => {
+			nbConviv = e.target.value;
+		});
+		document.getElementById('Date de réservation').addEventListener('change', (e) => {
+			dateReserv = e.target.value;
+		});
+		document.getElementById('Heure de réservation').addEventListener('change', (e) => {
+			heureReserv = e.target.value;
+		});
+
+		document.getElementById('submit').addEventListener('click', () => {
+			if (nom && prenom && tel && nbConviv && dateReserv && heureReserv) {
+				console.log('Réservation du restaurant ' + idResto + ' par ' + nom + ' ' + prenom + ' au ' + tel + ' pour ' + nbConviv + ' personnes le ' + dateReserv + ' à ' + heureReserv + 'h');
+				fetch('http://localhost:8080/reservation?date=' + dateReserv + '_' + heureReserv + ':00:00&idResto=' + idResto + '&nbConviv=' + nbConviv + '&nom=' + nom + '&prenom=' + prenom + '&numTel=' + tel);
+				modal.style.display = 'none';
+			}
+			else {
+				alert('Veuillez remplir tous les champs');
+			}
+		});
+
 }
+
