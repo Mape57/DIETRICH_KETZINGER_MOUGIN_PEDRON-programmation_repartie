@@ -1,13 +1,13 @@
-import { initMap, addMarkersToMap } from './map.js';
-import { redIcon, blueIcon, yellowIcon, greenIcon } from './mapIcons.js';
-import { createPopupContent, createVeloPopupContent, createIncidentPopupContent, createSchoolPopupContent } from './popupContent.js';
-import { fetchVeloData } from './recup_velo.js';
-import { fetchRestaurantList, fetchRestaurantDetails } from './recup_restaurants.js';
-import { fetchIncidentData } from "./recup_incidents.js";
-import { fetchSchoolData } from "./recup_ecoles.js";
+import { initMap, addMarkersToMap } from './script/affichage/map.js';
+import { redIcon, blueIcon, yellowIcon, greenIcon } from './script/tools/mapIcons.js';
+import { createPopupContent, createVeloPopupContent, createIncidentPopupContent, createSchoolPopupContent } from './script/tools/popupContent.js';
+import { fetchVeloData } from './script/recuperation/recup_velo.js';
+import { fetchRestaurantList, fetchRestaurantDetails } from './script/recuperation/recup_restaurants.js';
+import { fetchIncidentData } from "./script/recuperation/recup_incidents.js";
+import { fetchSchoolData } from "./script/recuperation/recup_ecoles.js";
 import { fetchMeteo } from "./script/recuperation/recup_meteo";
 import { displayMeteo } from "./script/affichage/aff_meteo";
-import { RestaurantManager } from './RestaurantManager.js';
+import { RestaurantManager } from './script/tools/RestaurantManager.js';
 
 
 document.addEventListener('DOMContentLoaded', async () => {

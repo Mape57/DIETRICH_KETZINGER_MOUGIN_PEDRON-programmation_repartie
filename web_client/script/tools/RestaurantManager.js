@@ -33,16 +33,14 @@ export class RestaurantManager {
             </div>
         `;
 
-		const formContainer = document.createElement('div');
-		formContainer.id = 'formContainer';
-		formContainer.style.position = 'absolute';
-		formContainer.style.top = '50%';
-		formContainer.style.left = '50%';
-		formContainer.style.transform = 'translate(-50%, -50%)';
-		formContainer.style.zIndex = '1000';
+		const formContainer = document.getElementById("creation-restaurant");
+		console.log(formContainer);
 		formContainer.innerHTML = formHtml;
-
-		document.body.appendChild(formContainer);
+		setTimeout(() => {
+			let height = document.getElementById("addRestaurantForm").clientHeight;
+			formContainer.style.maxHeight = height + 'px';
+			console.log(height)
+		}, 100);
 	}
 
 	closeAddRestaurantForm() {

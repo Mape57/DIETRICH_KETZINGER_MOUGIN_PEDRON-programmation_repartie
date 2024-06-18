@@ -1,11 +1,12 @@
-#map { height: 50vh; }
+#map { height: 50vh;
+z-index: 0}
 
 * {
 	font-family: Roboto, sans-serif;
 }
 
 :root {
-	--meteo-padding: 3rem;
+	--meteo-padding: 1.5rem;
 }
 
 body, html {
@@ -14,6 +15,8 @@ body, html {
 }
 
 #meteo_week {
+	background-color: white;
+	z-index: 1;
 	display: flex;
 	flex-direction: row;
 	width: 100%;
@@ -38,7 +41,7 @@ body, html {
 
 #today > #current_day > h1 {
 	margin: 0;
-	font-size: 10rem;
+	font-size: 6rem;
 }
 
 #side_detail > h2 {

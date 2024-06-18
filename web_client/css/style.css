@@ -3,7 +3,7 @@
 }
 
 #map {
-    height: 70vh;
+    height: 100vh;
     position: relative;
 }
 
@@ -91,4 +91,10 @@ nav h1 {
     width: 100%;
     cursor: pointer;
     display: inline-block; /* Ensure the label takes the full width */
+}
+
+
+#creation-restaurant {
+    transition-duration: .3s;
+    max-height: 0;
 }
