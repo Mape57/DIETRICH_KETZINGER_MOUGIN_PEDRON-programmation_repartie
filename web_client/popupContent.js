@@ -43,7 +43,7 @@ export function createVeloPopupContent(station) {
 	return `
         <div style="width: 250px;">
             <h3>Station de Vélos</h3>
-            <p>Adresse: ${station.address}</p>
+            <p style="text-align: justify">Adresse: ${station.address}</p>
             <p>Capacité: ${station.capacity} vélos</p>
         </div>
     `;
