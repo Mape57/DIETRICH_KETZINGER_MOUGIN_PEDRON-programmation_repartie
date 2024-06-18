@@ -1,6 +1,6 @@
 // recup_incidents.js
 
-import {baseURL} from "./script/config";
+import {baseURL} from "../tools/config";
 
 export async function fetchIncidentData() {
     return fetch(`${baseURL}/travaux`)

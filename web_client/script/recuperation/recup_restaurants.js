@@ -1,4 +1,4 @@
-import {baseURL} from "./script/config";
+import {baseURL} from "../tools/config";
 
 const UNSPLASH_ACCESS_KEY = 'demande a ta mere'; // Remplacez par votre clé API
 let imageIndex = 0; // Compteur global pour suivre l'index des images

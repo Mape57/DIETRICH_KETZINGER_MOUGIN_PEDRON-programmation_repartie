@@ -1,4 +1,4 @@
-import {baseURL} from "./script/config";
+import {baseURL} from "./config";
 
 export function envoieRestaurant(nomResto, adr, note, coordonnees) {
 	return fetch(`${baseURL}/restaurants`, {
@@ -6,12 +6,12 @@ export function envoieRestaurant(nomResto, adr, note, coordonnees) {
 		headers: {
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify({
-			nomResto,
-			adr,
-			note,
-			coordonnees
-		})
+		body: {
+			"nomResto": nomResto,
+			"adr": adr,
+			"note": note,
+			"coordonnees": coordonnees
+		}
 	})
 		.then(response => response.json())
 		.catch(error => {
