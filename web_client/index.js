@@ -1,6 +1,6 @@
 import { initMap, addMarkersToMap } from './map.js';
 import { redIcon, blueIcon, yellowIcon, greenIcon } from './mapIcons.js';
-import { createPopupContent, createVeloPopupContent, createIncidentPopupContent, createSchoolPopupContent, reserveRestaurant } from './popupContent.js';
+import { createPopupContent, createVeloPopupContent, createIncidentPopupContent, createSchoolPopupContent } from './popupContent.js';
 import { fetchVeloData } from './recup_velo.js';
 import { fetchRestaurantList, fetchRestaurantDetails } from './recup_restaurants.js';
 import { fetchIncidentData } from "./recup_incidents.js";
@@ -49,20 +49,47 @@ document.addEventListener('DOMContentLoaded', async () => {
 		});
 	}
 
+	function updateButtonState() {
+		const buttons = [
+			{ id: 'toggleRestaurants', color: '#007bff' },
+			{ id: 'toggleVelo', color: '#dc3545' },
+			{ id: 'toggleIncidents', color: '#ffc107' },
+			{ id: 'toggleSchools', color: '#28a745' },
+		];
+
+		buttons.forEach(button => {
+			const checkbox = document.getElementById(button.id);
+			if (checkbox) {
+				const label = checkbox.closest('label');
+				if (label) {
+					if (checkbox.checked) {
+						label.style.borderColor = button.color;
+					} else {
+						label.style.borderColor = 'white';
+					}
+				}
+			}
+		});
+	}
+
 	document.getElementById('toggleRestaurants').addEventListener('change', (e) => {
 		toggleMarkers(restaurantMarkers, e.target.checked);
+		updateButtonState();
 	});
 
 	document.getElementById('toggleVelo').addEventListener('change', (e) => {
 		toggleMarkers(veloMarkers, e.target.checked);
+		updateButtonState();
 	});
 
 	document.getElementById('toggleIncidents').addEventListener('change', (e) => {
 		toggleMarkers(incidentMarkers, e.target.checked);
+		updateButtonState();
 	});
 
 	document.getElementById('toggleSchools').addEventListener('change', (e) => {
 		toggleMarkers(schoolMarkers, e.target.checked);
+		updateButtonState();
 	});
 
 	document.getElementById('toggleRestaurants').checked = true;
@@ -73,4 +100,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 	toggleMarkers(veloMarkers, false);
 	toggleMarkers(incidentMarkers, false);
 	toggleMarkers(schoolMarkers, false);
+	updateButtonState();
 });
