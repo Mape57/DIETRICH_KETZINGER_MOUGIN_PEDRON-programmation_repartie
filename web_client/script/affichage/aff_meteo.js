@@ -13,7 +13,6 @@ const meteo_template = document.getElementById('meteo_template');
 let meteo = Handlebars.compile(meteo_template.innerHTML);
 
 export function displayMeteo(data) {
-	console.log(data);
 	let dateElement = new Date();
 	dateElement.setMinutes(0);
 	dateElement.setSeconds(0);
@@ -32,8 +31,6 @@ export function displayMeteo(data) {
 		nowData = data[date];
 	}
 
-	console.log(date);
-
 	let meteoData = {
 		current_day: {
 			temp: Math.round((nowData.temperature['2m'] - 273.15)) + "°C",
@@ -45,7 +42,7 @@ export function displayMeteo(data) {
 
 	meteoData.days = [];
 
-	for (let i = 0; i < 8; i++) {
+	for (let i = 0; i < 5; i++) {
 		let day = new Date(date);
 		day.setDate(day.getDate() + i);
 
