@@ -69,6 +69,7 @@ async function fetchRestaurantImage(restaurantName) {
 }
 
 
+// Fonction pour obtenir l'état d'ouverture
 export async function fetchRestaurantHours(idResto) {
 	return fetch(`${baseURL}/restaurants/${idResto}/horaires`)
 		.then(response => response.json())
@@ -77,10 +78,13 @@ export async function fetchRestaurantHours(idResto) {
 			const aujourdhui = new Date().getDay();
 			const jourActuel = jours[aujourdhui];
 			const horaires = data[jourActuel] || null;
+
 			if (horaires) {
 				const maintenant = new Date();
 				const heureActuelle = maintenant.getHours();
+
 				const ouvert = horaires.some(([debut, fin]) => heureActuelle >= debut && heureActuelle < fin);
+
 				return { ouvert };
 			} else {
 				return { ouvert: false };
@@ -92,5 +96,14 @@ export async function fetchRestaurantHours(idResto) {
 		});
 }
 
+// Fonction pour obtenir tous les horaires de la semaine
+export async function fetchAllRestaurantHours(idResto) {
+	return fetch(`${baseURL}/restaurants/${idResto}/horaires`)
+		.then(response => response.json())
+		.catch(error => {
+			console.error(`Erreur lors de la récupération des horaires du restaurant ${idResto}:`, error);
+			return null;
+		});
+}
 
 

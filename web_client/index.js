@@ -1,6 +1,12 @@
 import { initMap, addMarkersToMap } from './script/affichage/map.js';
 import { redIcon, blueIcon, yellowIcon, greenIcon } from './script/tools/mapIcons.js';
-import { createPopupContent, createVeloPopupContent, createIncidentPopupContent, createSchoolPopupContent } from './script/tools/popupContent.js';
+import {
+	createPopupContent,
+	createVeloPopupContent,
+	createIncidentPopupContent,
+	createSchoolPopupContent,
+	afficherHoraires
+} from './script/tools/popupContent.js';
 import { fetchVeloData } from './script/recuperation/recup_velo.js';
 import { fetchRestaurantList, fetchRestaurantDetails } from './script/recuperation/recup_restaurants.js';
 import { fetchIncidentData } from "./script/recuperation/recup_incidents.js";
@@ -108,6 +114,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	// Initialiser le gestionnaire de restaurants
 	window.restaurantManager = new RestaurantManager(map, restaurantMarkers);
+
+	// Exposer la fonction afficherHoraires pour qu'elle soit accessible depuis le HTML
+	window.afficherHoraires = afficherHoraires;
 
 	updateButtonState();
 });
