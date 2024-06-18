@@ -2,25 +2,23 @@ package handler.restaurant;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.json.JSONObject;
 import serveur.ServeurCentral;
 import tools.ExchangeContentSender;
-import tools.QueryParser;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.Map;
 
 public class RestaurantsHandler implements HttpHandler {
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		String query = exchange.getRequestURI().getQuery();
-		Map<String, String> params = QueryParser.parse(query);
-
 		String content = "";
-		if (params.isEmpty()) {
+
+		if (exchange.getRequestMethod().equals("GET")) {
 			content = ServeurCentral.restaurant.getAllRestaurantPosition();
-		} else if (params.containsKey("nomResto") && params.containsKey("adr") && params.containsKey("coordonnees") && params.containsKey("note")) {
-			content = postRestaurant(params);
+		} else if (exchange.getRequestMethod().equals("POST")) {
+			byte[] body = exchange.getRequestBody().readAllBytes();
+			content = postRestaurant(new String(body));
 		} else {
 			ExchangeContentSender.send(exchange, "Les paramètres fournis ne sont pas corrects.", 400);
 		}
@@ -28,11 +26,13 @@ public class RestaurantsHandler implements HttpHandler {
 		ExchangeContentSender.send(exchange, content, 200);
 	}
 
-	private String postRestaurant(Map<String, String> params) throws RemoteException {
-		String nomResto = params.get("nomResto");
-		String adr = params.get("adr");
-		String coordonnees = params.get("coordonnees");
-		int note = Integer.parseInt(params.get("note"));
+	private String postRestaurant(String body) throws RemoteException {
+		JSONObject json = new JSONObject(body);
+
+		String nomResto = json.getString("nomResto");
+		String adr = json.getString("adr");
+		String coordonnees = json.getString("coordonnees");
+		int note = json.getInt("note");
 
 		return ServeurCentral.restaurant.postRestaurant(nomResto, adr, coordonnees, note);
 	}
