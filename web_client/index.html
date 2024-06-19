@@ -74,10 +74,16 @@
 		<h3>{{nomResto}}</h3>
 		<div>{{{note}}}</div>
 		<p>{{adr}}</p>
-		<p>{{etatOuverture}}</p>
+		<input type="checkbox" id="horaires-restaurant">
+		<label for="horaires-restaurant"><i class="fa-solid fa-chevron-right"></i>Le restaurant est actuellement {{etatOuverture}}</label>
+		<div id="horaires">
+			{{#each horaires}}
+				<p>{{jour}} : {{horaire}}</p>
+			{{/each}}
+		</div>
 		<div class="popup-restaurant-button">
 			<button id="reserver-restaurant">Reserver</button>
-			<button id="horaire-restaurant">Annuler</button>
+			<button id="fermer-restaurant">Annuler</button>
 		</div>
 	</div>
 </script>

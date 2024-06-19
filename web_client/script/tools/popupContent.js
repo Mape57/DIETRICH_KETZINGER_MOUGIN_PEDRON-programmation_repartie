@@ -1,5 +1,4 @@
-import { fetchRestaurantHours, fetchAllRestaurantHours } from '../recuperation/recup_restaurants.js';
-import Handlebars from 'handlebars';
+import {fetchAllRestaurantHours} from '../recuperation/recup_restaurants.js';
 
 export function generateStars(rating) {
 	const maxStars = 5;
@@ -23,26 +22,6 @@ export function generateStars(rating) {
 	}
 
 	return starsHtml;
-}
-
-export async function createPopupContent(details) {
-	const starsHtml = generateStars(details.note);
-	const { ouvert } = await fetchRestaurantHours(details.idResto);
-	const etatOuverture = ouvert ? "Ouvert" : "Fermé";
-
-	return `
-        <div class="popup-restaurant">
-            <img src="${details.imageUrl}" alt="Image du restaurant">
-            <h3>${details.nomResto}</h3>
-            <div>Note: ${details.note}/10</div>
-            <div>${starsHtml}</div>
-            <p>Adresse: ${details.adr}</p>
-            <p>État: ${etatOuverture}</p>
-            <button onclick="reserveRestaurant(${details.idResto})">RÉSERVER</button>
-            <button onclick="afficherHoraires(${details.idResto})">Voir les horaires</button>
-            <div id="horaires-${details.idResto}" style="display:none;"></div>
-        </div>
-    `;
 }
 
 export function createVeloPopupContent(station) {
