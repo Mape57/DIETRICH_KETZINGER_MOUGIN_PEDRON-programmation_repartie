@@ -16,18 +16,9 @@
 <div id="map"></div>
 
 <div id="sidebar">
-	<div id="detail">
-
-	</div>
+	<div id="detail"></div>
 
 	<div id="controls">
-		<div class="hide">
-			<input type="checkbox" id="toggleReport">
-			<label for="toggleReport" class="filter-btn grey">
-				<img src="/resources/logo_mapaide.svg" alt="">
-				<span>Map'Aide</span>
-			</label>
-		</div>
 		<div class="hide">
 			<input type="checkbox" id="toggleRestaurants">
 			<label for="toggleRestaurants" class="filter-btn blue">
@@ -87,7 +78,6 @@
 		</div>
 	</div>
 </script>
-
 <script type="text/x-handlebars-template" id="addRestaurant_template">
 	<div id="addRestaurantForm" class="popup-display">
 		<img src="resources/tmp.jpg" alt="Placeholder">
@@ -110,7 +100,6 @@
 		</div>
 	</div>
 </script>
-
 <script type="text/x-handlebars-template" id="meteo_template">
 	<div id="meteo_week">
 		<div id="today">
@@ -144,6 +133,31 @@
 		</div>
 	</div>
 </script>
+
+<!-- Template pour les popups -->
+<script type="text/x-handlebars-template" id="incident_template">
+	<div style="width: 250px;">
+		<h3>{{ short_description }}</h3>
+		<p>{{ description }}</p>
+		<p><b>Début:</b> {{ starttime }}</p>
+		<p><b>Fin:</b> {{ endtime }}</p>
+		<p><b>Localisation:</b> {{ location_description }}</p>
+	</div>
+</script>
+<script type="text/x-handlebars-template" id="school_template">
+	<div style="width: 250px;">
+		<h3>{{ name }}</h3>
+		<p>Adresse: {{ address }}</p>
+	</div>
+</script>
+<script type="text/x-handlebars-template" id="velib_template">
+	<div style="width: 250px;">
+		<h3>Station de Vélos</h3>
+		<p style="text-align: justify">Adresse: {{ address }}</p>
+		<p>Capacité: {{ capacity }} vélos</p>
+	</div>
+</script>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
 		crossorigin="">

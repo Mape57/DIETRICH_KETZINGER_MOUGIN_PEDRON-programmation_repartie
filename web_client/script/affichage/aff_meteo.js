@@ -1,18 +1,34 @@
 import Handlebars from "handlebars";
+import {semaine} from "../tools/config";
 
-const weekday = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
 const titleToPicto = {
 	"Orageux": "resources/meteo_picto/cloud-bolt-solid.svg",
 	"Pluvieux": "resources/meteo_picto/cloud-showers-heavy-solid.svg",
 	"Nuageux": "resources/meteo_picto/cloud-sun-solid.svg",
 	"Brumeux": "resources/meteo_picto/smog-solid.svg",
-	"Ensoleill&eacute;": "resources/meteo_picto/sun-solid.svg"
+	"Ensoleillé": "resources/meteo_picto/sun-solid.svg"
 }
 
 const meteo_template = document.getElementById('meteo_template');
 let meteo = Handlebars.compile(meteo_template.innerHTML);
 
 export function displayMeteo(data) {
+	let [date, nowData] = setupDate(data);
+
+	let meteoData = {};
+
+	meteoData.current_day = getCurrentDay(date, nowData);
+	meteoData.hours = getNextHours(date, data);
+	meteoData.days = getNextDays(date, data);
+
+	document.getElementById('meteo').innerHTML = meteo(meteoData);
+
+	document.getElementById('toggleMeteo').addEventListener('change', () => {
+		document.getElementById('meteo_week').classList.toggle('show');
+	});
+}
+
+function setupDate(data) {
 	let dateElement = new Date();
 	dateElement.setMinutes(0);
 	dateElement.setSeconds(0);
@@ -30,35 +46,20 @@ export function displayMeteo(data) {
 		date = dateToString(dateElement);
 		nowData = data[date];
 	}
+	return [date, nowData];
+}
 
-	let meteoData = {
-		current_day: {
-			temp: Math.round((nowData.temperature['2m'] - 273.15)) + "°C",
-			heure: date.slice(11, 16),
-			jour: weekday[new Date(date).getDay()],
-			descr: getWeatherPicto(nowData)
-		}
-	}
+function getCurrentDay(date, nowData) {
+	return {
+		temp: Math.round((nowData.temperature['2m'] - 273.15)) + "°C",
+		heure: date.slice(11, 16),
+		jour: semaine[new Date(date).getDay()],
+		descr: getWeatherPicto(nowData)
+	};
+}
 
-	meteoData.days = [];
-
-	for (let i = 0; i < 5; i++) {
-		let day = new Date(date);
-		day.setDate(day.getDate() + i);
-
-		let dayData = data[dateToString(day)];
-
-		meteoData.days.push({
-			jour: weekday[day.getDay()].slice(0, 3),
-			temp: Math.round(dayData.temperature['2m'] - 273.15) + "°C"
-		});
-
-		if (i === 0) {
-			meteoData.days[i].current = true;
-		}
-	}
-
-	meteoData.hours = [];
+function getNextHours(date, data) {
+	let hours = [];
 
 	for (let i = 0; i < 8; i++) {
 		let hour = new Date(date);
@@ -67,21 +68,36 @@ export function displayMeteo(data) {
 		if (newHour >= 24) hour.setDate(hour.getDate() + 1);
 		hour.setHours(newHour % 24);
 
-
 		let hourData = data[dateToString(hour)];
 
-		meteoData.hours.push({
+		hours.push({
 			heure: dateToString(hour).slice(11, 16),
 			temp: Math.round((hourData.temperature['2m'] - 273.15)) + "°C",
 			picto: titleToPicto[getWeatherPicto(hourData)]
 		});
 	}
 
-	document.getElementById('meteo').innerHTML = meteo(meteoData);
+	return hours;
+}
 
-	document.getElementById('toggleMeteo').addEventListener('change', () => {
-		document.getElementById('meteo_week').classList.toggle('show');
-	});
+function getNextDays(date, data) {
+	let days = [];
+
+	for (let i = 0; i < 8; i++) {
+		let day = new Date(date);
+		day.setDate(day.getDate() + i);
+
+		let dayData = data[dateToString(day)];
+
+		days.push({
+			jour: semaine[day.getDay()].slice(0, 3),
+			temp: Math.round(dayData.temperature['2m'] - 273.15) + "°C"
+		});
+
+		if (i === 0) days[i].current = true;
+	}
+
+	return days;
 }
 
 function dateToString(date) {
@@ -95,22 +111,17 @@ function dateToString(date) {
 }
 
 function getWeatherPicto(data) {
-	const totalCloudCover = data.nebulosite.totale;
-	const rain = data.pluie;
-	const humidity = data.humidite['2m'];
-	const cape = data.cape;
-
-	if (rain > 0.5) {
-		if (cape > 1000) {
+	if (data.pluie > 0.5) {
+		if (data.cape > 1000) {
 			return "Orageux";
 		} else {
 			return "Pluvieux";
 		}
-	} else if (totalCloudCover > 80) {
+	} else if (data.nebulosite.totale > 80) {
 		return "Nuageux";
-	} else if (humidity > 90) {
+	} else if (data.humidite['2m'] > 90) {
 		return "Brumeux";
 	} else {
-		return "Ensoleill&eacute;";
+		return "Ensoleillé";
 	}
 }
