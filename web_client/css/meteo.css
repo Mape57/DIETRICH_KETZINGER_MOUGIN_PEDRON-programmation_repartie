@@ -31,6 +31,7 @@ body, html {
 	display: flex;
 	flex-direction: row;
 	width: 100%;
+	height: 40vh;
 
 	box-shadow: 0 0 10px rgba(0, 0, 0, .3);
 	transition-duration: .6s;
@@ -89,12 +90,15 @@ body, html {
 
 /* ===== Partie droite ===== */
 #meteo_week > #week {
-	padding: var(--meteo-padding);
+	margin: var(--meteo-padding) 0;
+	padding: 0 var(--meteo-padding);
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: flex-end;
+	gap: .5rem;
+	overflow: auto;
 }
 
 #meteo_week > #week > div {
@@ -117,3 +121,35 @@ body, html {
 #meteo_week > #today > #list_hour > div > img {
 	width: 2rem;
 }
+
+
+/* Scrollbar */
+
+* {
+	--sb-track-color: #ffffff;
+	--sb-thumb-color: #cecece;
+	--sb-size: 8px;
+}
+
+*::-webkit-scrollbar {
+	width: var(--sb-size)
+}
+
+*::-webkit-scrollbar-track {
+	background: var(--sb-track-color);
+	border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+	background: var(--sb-thumb-color);
+	border-radius: 10px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+	* {
+		scrollbar-color: var(--sb-thumb-color)
+		var(--sb-track-color);
+	}
+}
+
+/* Mobile */
