@@ -39,8 +39,6 @@ body, html {
 
 }
 
-
-
 #meteo_week.show {
 	bottom: 0;
 }
@@ -153,3 +151,60 @@ body, html {
 }
 
 /* Mobile */
+@media (max-width: 768px) {
+	:root {
+		--meteo-padding: .1rem;
+	}
+
+	#meteo_week {
+		z-index: 3;
+		flex-direction: column;
+		height: auto;
+		padding-bottom: 2rem;
+	}
+
+	#meteo_week > #today {
+		padding: 1rem;
+	}
+
+	#meteo_week > #today > #list_hour {
+		flex-wrap: wrap;
+		gap: .5rem;
+	}
+
+	#meteo_week > #today > #current_day {
+		flex-direction: column;
+		align-items: center;
+		justify-content: start;
+	}
+
+	#meteo_week > #today > #current_day > h1, #side_detail > p {
+		display: none;
+	}
+
+	#meteo_week > #today > #current_day > #side_detail {
+		display: flex;
+		gap: 1rem;
+		padding-bottom: 1rem;
+	}
+
+	#meteo_week > #today > #list_hour > div {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	#meteo_week > #today > #list_hour > div > img {
+		width: 1.5rem;
+	}
+
+	#meteo_week > #week {
+		padding: 1rem;
+		flex-direction: row;
+	}
+
+	#meteo_week > #week > div {
+		flex-direction: column;
+		align-items: center;
+		gap: 0;
+	}
+}

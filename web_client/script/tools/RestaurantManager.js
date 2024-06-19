@@ -13,10 +13,16 @@ export class RestaurantManager {
 	}
 
 	init() {
-		this.map.on('click', (e) => {
-			if (e.originalEvent.ctrlKey) {
-				const latlng = e.latlng;
-				this.openAddRestaurantForm(latlng);
+		this.map.on('mousedown', (e) => {
+			this.latlng = e.latlng;
+			this.start = new Date().getTime();
+		});
+		this.map.on('mouseup', (e) => {
+			this.end = new Date().getTime();
+			if (this.end - this.start < 200) {
+				this.latlng = null;
+			} else {
+				this.openAddRestaurantForm(this.latlng);
 			}
 		});
 	}
