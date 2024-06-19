@@ -10,7 +10,7 @@ export function initMap() {
 	}).addTo(map);
 
 	L.control.zoom({
-		position: 'bottomright'
+		position: 'topright'
 	}).addTo(map);
 
 	return map;

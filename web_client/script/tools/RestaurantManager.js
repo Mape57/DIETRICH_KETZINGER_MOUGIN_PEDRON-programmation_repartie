@@ -14,7 +14,8 @@ export class RestaurantManager {
 
 	init() {
 		this.map.on('click', (e) => {
-			if (e.originalEvent.ctrlKey) {
+			// if control is pressed or if on mobile
+			if (e.originalEvent.ctrlKey || window.innerWidth < 800) {
 				const latlng = e.latlng;
 				this.openAddRestaurantForm(latlng);
 			}
