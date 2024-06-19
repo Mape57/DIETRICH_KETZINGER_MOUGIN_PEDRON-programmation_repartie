@@ -97,6 +97,18 @@ export function fetchAllRestaurantHours(idResto) {
 		});
 }
 
+export function fetchRestaurantHoraires(idResto, dateR, nbConviv) {
+	return fetch(`${baseURL}/reservation?date=${dateR}&idResto=${idResto}&nbConviv=${nbConviv}`)
+		.then(response => response.json())
+		.then(data => {
+			return data;
+		})
+		.catch(error => {
+			console.error(`Erreur lors de la récupération des horaires du restaurant ${idResto}:`, error);
+			return null;
+		});
+}
+
 export function postRestaurant(nomResto, adr, note, coordonnees) {
 	return fetch(`${baseURL}/restaurants`, {
 		method: 'POST',
