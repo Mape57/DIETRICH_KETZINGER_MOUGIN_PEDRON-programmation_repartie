@@ -1,5 +1,4 @@
 import {blueIcon} from './mapIcons.js';
-import {createPopupContent} from './popupContent.js';
 import {postRestaurant} from '../recuperation/recup_restaurants.js';
 import Handlebars from 'handlebars';
 
@@ -23,7 +22,7 @@ export class RestaurantManager {
 	}
 
 	openAddRestaurantForm(latlng) {
-		let animate = !document.querySelector("#restaurantDetails, #addRestaurantForm") ;
+		let animate = !document.querySelector("#restaurantDetails.show, #addRestaurantForm.show") ;
 
 		if (this.latlng && document.getElementById("addRestaurantForm")) {
 			this.latlng = latlng;
@@ -47,7 +46,7 @@ export class RestaurantManager {
 
 	closeAddRestaurantForm() {
 		this.latlng = null;
-		document.querySelector("#detail").innerHTML = "";
+		document.querySelector("#addRestaurantForm").classList.remove("show");
 	}
 
 	addRestaurant(lat, lng) {
