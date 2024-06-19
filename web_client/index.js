@@ -1,22 +1,35 @@
-import { initMap, addMarkersToMap } from './script/affichage/map.js';
-import { redIcon, blueIcon, yellowIcon, greenIcon } from './script/tools/mapIcons.js';
+import {initMap, addMarkersToMap} from './script/affichage/map.js';
+import {redIcon, blueIcon, yellowIcon, greenIcon} from './script/tools/mapIcons.js';
 import {
 	createPopupContent,
 	createVeloPopupContent,
 	createIncidentPopupContent,
 	createSchoolPopupContent,
-	afficherHoraires
+	afficherHoraires, generateStars
 } from './script/tools/popupContent.js';
-import { fetchVeloData } from './script/recuperation/recup_velo.js';
-import { fetchRestaurantList, fetchRestaurantDetails } from './script/recuperation/recup_restaurants.js';
-import { fetchIncidentData } from "./script/recuperation/recup_incidents.js";
-import { fetchSchoolData } from "./script/recuperation/recup_ecoles.js";
-import { fetchMeteo } from "./script/recuperation/recup_meteo";
-import { displayMeteo } from "./script/affichage/aff_meteo";
-import { RestaurantManager } from './script/tools/RestaurantManager.js';
+import {fetchVeloData} from './script/recuperation/recup_velo.js';
+import {
+	fetchRestaurantList,
+	fetchRestaurantDetails,
+	fetchRestaurantHours
+} from './script/recuperation/recup_restaurants.js';
+import {fetchIncidentData} from "./script/recuperation/recup_incidents.js";
+import {fetchSchoolData} from "./script/recuperation/recup_ecoles.js";
+import {fetchMeteo} from "./script/recuperation/recup_meteo";
+import {displayMeteo} from "./script/affichage/aff_meteo";
+import {RestaurantManager} from './script/tools/RestaurantManager.js';
+import Handlebars from 'handlebars';
 
 
 document.addEventListener('DOMContentLoaded', async () => {
+	// TODO centrer la carte sur le point créé 
+
+	document.getElementById("toggleReport").addEventListener("click", () => {
+		document.querySelectorAll("#controls > div").forEach((div) => {
+			div.classList.toggle("hide");
+		});
+	});
+
 	const map = initMap();
 
 	let restaurantMarkers = [];
@@ -42,11 +55,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	restaurantMarkers = addMarkersToMap(map, restaurantList, blueIcon, (restaurant, marker) => {
 		marker.on('click', async () => {
-			const details = await fetchRestaurantDetails(restaurant.idResto);
-			if (details) {
-				const popupContent = await createPopupContent(details);
-				marker.bindPopup(popupContent).openPopup();
-			}
+			fetchRestaurantDetails(restaurant.idResto).then(async details => {
+				if (details) {
+					let animate = !document.querySelector("#restaurantDetails, #addRestaurantForm");
+					console.log(animate);
+					details.note = generateStars(details.note);
+					const detail_template = document.getElementById('detail_template');
+					let detail = Handlebars.compile(detail_template.innerHTML);
+					details.etatOuverture = await fetchRestaurantHours(details.idResto).then(({ouvert}) => ouvert ? "Ouvert" : "Fermé");
+					document.getElementById('detail').innerHTML = detail(details);
+
+					if (!animate) document.querySelector("#restaurantDetails").classList.add("show");
+					else setTimeout(() => document.querySelector("#restaurantDetails").classList.add("show"), 10);
+				}
+			})
 		});
 	});
 
@@ -62,23 +84,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	function updateButtonState() {
 		const buttons = [
-			{ id: 'toggleRestaurants', color: '#007bff' },
-			{ id: 'toggleVelo', color: '#dc3545' },
-			{ id: 'toggleIncidents', color: '#ffc107' },
-			{ id: 'toggleSchools', color: '#28a745' },
+			{id: 'toggleRestaurants', color: '#007bff'},
+			{id: 'toggleVelo', color: '#dc3545'},
+			{id: 'toggleIncidents', color: '#ffc107'},
+			{id: 'toggleSchools', color: '#28a745'},
 		];
 
 		buttons.forEach(button => {
 			const checkbox = document.getElementById(button.id);
-			if (checkbox) {
-				const label = checkbox.closest('label');
-				if (label) {
-					if (checkbox.checked) {
-						label.style.borderColor = button.color;
-					} else {
-						label.style.borderColor = 'white';
-					}
-				}
+			if (!checkbox) return;
+
+			const label = checkbox.closest('label');
+			if (!label) return;
+
+			if (checkbox.checked) {
+				label.style.borderColor = button.color;
+			} else {
+				label.style.borderColor = 'white';
 			}
 		});
 	}
