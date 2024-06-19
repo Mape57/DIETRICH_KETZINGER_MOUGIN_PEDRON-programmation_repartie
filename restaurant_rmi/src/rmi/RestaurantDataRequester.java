@@ -24,6 +24,7 @@ public class RestaurantDataRequester implements RestaurantDataRequesterInterface
 			possibleReservations = Restaurant.getReservationPossible(idResto, nbConviv, date);
 		} catch (SQLException e) {
 			System.out.println("Erreur lors de la récupération des réservations possibles.");
+			e.printStackTrace();
 			return "[]";
 		}
 

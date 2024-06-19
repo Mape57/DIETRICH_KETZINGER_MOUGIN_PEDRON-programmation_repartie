@@ -1,7 +1,7 @@
 import Handlebars from "handlebars";
 import {fetchAllRestaurantHours, fetchRestaurantHours} from "../recuperation/recup_restaurants";
 import {semaine} from "../tools/config";
-import {reserveRestaurant} from "./aff_popup";
+import {reserveRestaurant} from "../../index";
 
 export async function displayRestaurantDetails(details, restaurant) {
 	let animate = !document.querySelector("#restaurantDetails.show, #addRestaurantForm.show");

@@ -218,6 +218,112 @@
     max-height: 0;
 }
 
+
+/* TABLEAU */
+.modal {
+}
+
+/* Style pour le contenu de la modale */
+.modal-content {
+	margin: 20px;
+}
+
+/* Style pour le bouton de fermeture */
+.close-btn {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-content {
+	font-family: Roboto, sans-serif;
+	background-color: white;
+	padding: 20px;
+	max-width: 80%;
+	margin: auto;
+	border-radius: 8px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-content h2 {
+	margin-top: 0;
+}
+
+#calendar {
+	border: 1px solid #ccc;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table th,
+table td {
+	border: 1px solid #ccc;
+	padding: 8px;
+	text-align: center;
+}
+
+table th {
+	background-color: #f2f2f2;
+}
+
+.checkbox-cell {
+	text-align: center;
+}
+
+.form {
+	margin-top: 20px;
+}
+
+.form input,
+.form select,
+.form button {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.form button {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+.form button:hover {
+	background-color: #45a049;
+}
+
 /* Mobile */
 @media (max-width: 768px) {
 	.popup-display {
@@ -255,3 +361,5 @@
 		height: 1.5rem;
 	}
 }
+
+
