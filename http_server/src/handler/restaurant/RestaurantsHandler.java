@@ -21,11 +21,8 @@ public class RestaurantsHandler implements HttpHandler {
 			String content = ServeurCentral.restaurant.getAllRestaurantPosition();
 			ExchangeContentSender.send(exchange, content, 200);
 		} else if (exchange.getRequestMethod().equals("POST")) {
-			System.out.println("here");
 			byte[] body = exchange.getRequestBody().readAllBytes();
-			System.out.println("before");
 			String content = postRestaurant(new String(body));
-			System.out.println(content);
 			ExchangeContentSender.send(exchange, content, 200);
 		} else {
 			ExchangeContentSender.send(exchange, "Les paramètres fournis ne sont pas corrects.", 400);

@@ -33,7 +33,7 @@ body, html {
 	width: 100%;
 
 	box-shadow: 0 0 10px rgba(0, 0, 0, .3);
-	transition-duration: .7s;
+	transition-duration: .6s;
 	transition-timing-function: cubic-bezier(0.68, -0.05, 0.27, 1.05);
 
 }

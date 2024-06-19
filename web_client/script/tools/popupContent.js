@@ -1,4 +1,5 @@
 import { fetchRestaurantHours, fetchAllRestaurantHours } from '../recuperation/recup_restaurants.js';
+import Handlebars from 'handlebars';
 
 export function generateStars(rating) {
 	const maxStars = 5;
@@ -30,8 +31,8 @@ export async function createPopupContent(details) {
 	const etatOuverture = ouvert ? "Ouvert" : "Fermé";
 
 	return `
-        <div style="width: 250px;">
-            <img src="${details.imageUrl}" alt="Image du restaurant" style="width: 100%;">
+        <div class="popup-restaurant">
+            <img src="${details.imageUrl}" alt="Image du restaurant">
             <h3>${details.nomResto}</h3>
             <div>Note: ${details.note}/10</div>
             <div>${starsHtml}</div>

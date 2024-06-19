@@ -1,6 +1,10 @@
-import { blueIcon } from './mapIcons.js';
-import { createPopupContent } from './popupContent.js';
-import { envoieRestaurant } from './envoie_Restaurant.js';
+import {blueIcon} from './mapIcons.js';
+import {createPopupContent} from './popupContent.js';
+import {postRestaurant} from '../recuperation/recup_restaurants.js';
+import Handlebars from 'handlebars';
+
+const addRestaurant_template = document.getElementById("addRestaurant_template");
+let addRestaurant = Handlebars.compile(addRestaurant_template.innerHTML);
 
 export class RestaurantManager {
 	constructor(map, restaurantMarkers) {
@@ -19,35 +23,31 @@ export class RestaurantManager {
 	}
 
 	openAddRestaurantForm(latlng) {
-		const formHtml = `
-            <div id="addRestaurantForm" style="background-color: white; padding: 10px; border-radius: 5px;">
-                <h3>Ajouter un nouveau restaurant</h3>
-                <label for="restaurantName">Nom:</label>
-                <input type="text" id="restaurantName" name="restaurantName"><br>
-                <label for="restaurantAddress">Adresse:</label>
-                <input type="text" id="restaurantAddress" name="restaurantAddress"><br>
-                <label for="restaurantRating">Note (sur 10):</label>
-                <input type="number" id="restaurantRating" name="restaurantRating" min="0" max="10"><br>
-                <button onclick="restaurantManager.addRestaurant(${latlng.lat}, ${latlng.lng})">Ajouter</button>
-                <button onclick="restaurantManager.closeAddRestaurantForm()">Annuler</button>
-            </div>
-        `;
+		let animate = !document.querySelector("#restaurantDetails, #addRestaurantForm") ;
 
-		const formContainer = document.getElementById("creation-restaurant");
-		console.log(formContainer);
-		formContainer.innerHTML = formHtml;
-		setTimeout(() => {
-			let height = document.getElementById("addRestaurantForm").clientHeight;
-			formContainer.style.maxHeight = height + 'px';
-			console.log(height)
-		}, 100);
+		if (this.latlng && document.getElementById("addRestaurantForm")) {
+			this.latlng = latlng;
+			return;
+		}
+		this.latlng = latlng;
+		let parent = document.getElementById("detail");
+		parent.innerHTML = addRestaurant({});
+
+		document.getElementById("create_restaurant").addEventListener('click', (e) => {
+			if (!this.latlng) return;
+			this.addRestaurant(this.latlng.lat, this.latlng.lng);
+		});
+		document.getElementById("cancel_restaurant").addEventListener('click', (e) => {
+			this.closeAddRestaurantForm();
+		});
+
+		if (!animate) document.querySelector("#addRestaurantForm").classList.add("show");
+		else setTimeout(() => document.querySelector("#addRestaurantForm").classList.add("show"), 10);
 	}
 
 	closeAddRestaurantForm() {
-		const formContainer = document.getElementById('formContainer');
-		if (formContainer) {
-			document.body.removeChild(formContainer);
-		}
+		this.latlng = null;
+		document.querySelector("#detail").innerHTML = "";
 	}
 
 	addRestaurant(lat, lng) {
@@ -59,7 +59,7 @@ export class RestaurantManager {
 			const coordonnees = lat + ',' + lng;
 
 
-			envoieRestaurant(name, address, rating, coordonnees)
+			postRestaurant(name, address, rating, coordonnees)
 				.then(response => {
 					if (response) {
 						const newRestaurant = {
@@ -71,7 +71,7 @@ export class RestaurantManager {
 							note: rating
 						};
 
-						const newMarker = L.marker([lat, lng], { icon: blueIcon })
+						const newMarker = L.marker([lat, lng], {icon: blueIcon})
 							.bindPopup(createPopupContent(newRestaurant))
 							.addTo(this.map);
 
