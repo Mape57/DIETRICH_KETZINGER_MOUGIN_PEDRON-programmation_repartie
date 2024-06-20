@@ -8,24 +8,28 @@ import tools.ExchangeContentSender;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.security.InvalidParameterException;
 
 public class RestaurantsHandler implements HttpHandler {
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		if (exchange.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
-			exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
-			exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, OPTIONS, POST");
-			exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type, Authorization");
-			exchange.sendResponseHeaders(204, -1);
-		} else if (exchange.getRequestMethod().equals("GET")) {
-			String content = ServeurCentral.restaurant.getAllRestaurantPosition();
-			ExchangeContentSender.send(exchange, content, 200);
-		} else if (exchange.getRequestMethod().equals("POST")) {
-			byte[] body = exchange.getRequestBody().readAllBytes();
-			String content = postRestaurant(new String(body));
-			ExchangeContentSender.send(exchange, content, 200);
-		} else {
+		try {
+			if (exchange.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
+				ExchangeContentSender.sendOptions(exchange);
+			} else if (exchange.getRequestMethod().equals("GET")) {
+				String content = ServeurCentral.restaurant.getAllRestaurantPosition();
+				ExchangeContentSender.send(exchange, content, 200);
+			} else if (exchange.getRequestMethod().equals("POST")) {
+				byte[] body = exchange.getRequestBody().readAllBytes();
+				String content = postRestaurant(new String(body));
+				ExchangeContentSender.send(exchange, content, 200);
+			} else {
+				ExchangeContentSender.send(exchange, "Méthode non autorisée.", 405);
+			}
+		} catch (NumberFormatException | InvalidParameterException e) {
 			ExchangeContentSender.send(exchange, "Les paramètres fournis ne sont pas corrects.", 400);
+		} catch (RemoteException e) {
+			ExchangeContentSender.send(exchange, "Erreur lors de la récupération des restaurants.", 500);
 		}
 	}
 
@@ -36,6 +40,10 @@ public class RestaurantsHandler implements HttpHandler {
 		String adr = json.getString("adr");
 		String coordonnees = json.getString("coordonnees");
 		int note = json.getInt("note");
+
+		// coordonnees match regex : number . number , number . number
+		if (nomResto.isEmpty() || adr.isEmpty() || note < 0 || note > 10 || !coordonnees.matches("^-?\\d+(\\.\\d+)?,-?\\d+(\\.\\d+)?$"))
+			throw new InvalidParameterException();
 
 		return ServeurCentral.restaurant.postRestaurant(nomResto, adr, coordonnees, note);
 	}
