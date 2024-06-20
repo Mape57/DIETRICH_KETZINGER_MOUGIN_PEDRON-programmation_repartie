@@ -16,4 +16,11 @@ public class ExchangeContentSender {
 		os.write(content.getBytes());
 		os.close();
 	}
+
+	public static void sendOptions(HttpExchange exchange) throws IOException {
+		exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+		exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, OPTIONS, POST");
+		exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+		exchange.sendResponseHeaders(204, -1);
+	}
 }

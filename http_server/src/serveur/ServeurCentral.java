@@ -16,7 +16,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ServeurCentral {
 	public static RestaurantDataRequesterInterface restaurant;
-	public static IncidentDataRequesterInterface incident;
+	public static IncidentDataRequesterInterface distant;
 
 	public static void main(String[] args) throws IOException, AlreadyBoundException {
 		System.out.println("Lancement du serveur...");

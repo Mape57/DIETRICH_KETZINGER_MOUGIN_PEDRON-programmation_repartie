@@ -21,7 +21,6 @@ public class RestaurantDB {
 			System.out.println("Driver Oracle non trouvé, vérifiez leur installation, sinon suivre le lien suivant.\nhttps://www.oracle.com/fr/database/technologies/appdev/jdbc-downloads.html");
 		} catch (SQLException e) {
 			System.out.println("Erreur lors de la connexion à la base de données");
-			e.printStackTrace();
 		}
 	}
 
@@ -39,7 +38,6 @@ public class RestaurantDB {
 			System.out.println("Fichier de configuration introuvable");
 		} catch (IOException e) {
 			System.out.println("Erreur lors de la lecture du fichier de configuration");
-			e.printStackTrace();
 		}
 		return prop;
 	}

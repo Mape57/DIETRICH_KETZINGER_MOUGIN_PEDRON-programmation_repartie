@@ -5,15 +5,15 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ProxySelector;
+import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.net.URI;
 import java.time.Duration;
 
 public class ProxyMethod implements AccessMethod {
 	@Override
-	public JSONObject getData() throws IOException {
+	public JSONObject getData(String urlStr) throws IOException {
 		// crée un client HTTP avec le proxy de l'IUT
 		HttpClient client = HttpClient.newBuilder()
 				.version(HttpClient.Version.HTTP_1_1)
@@ -24,7 +24,7 @@ public class ProxyMethod implements AccessMethod {
 
 		// crée une requête pour obtenir les données
 		HttpRequest request = HttpRequest.newBuilder()
-				.uri(URI.create("https://carto.g-ny.org/data/cifs/cifs_waze_v2.json"))
+				.uri(URI.create(urlStr))
 				.build();
 
 		// envoie la requête et récupère la réponse
