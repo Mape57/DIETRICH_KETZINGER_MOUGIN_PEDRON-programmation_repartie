@@ -1,6 +1,7 @@
 import {blueIcon} from './mapIcons.js';
 import {postRestaurant} from '../recuperation/recup_restaurants.js';
 import Handlebars from 'handlebars';
+import {createRestaurantPopupContent} from "../affichage/aff_popup";
 
 const addRestaurant_template = document.getElementById("addRestaurant_template");
 let addRestaurant = Handlebars.compile(addRestaurant_template.innerHTML);
@@ -13,15 +14,10 @@ export class RestaurantManager {
 	}
 
 	init() {
-		this.map.on('mousedown', (e) => {
-			this.latlng = e.latlng;
-			this.start = new Date().getTime();
-		});
-		this.map.on('mouseup', (e) => {
-			this.end = new Date().getTime();
-			if (this.end - this.start < 200) {
-				this.latlng = null;
-			} else {
+		this.map.on('click', (e) => {
+			// press ctrl to open the form or be on mobile
+			if (e.originalEvent.ctrlKey || window.innerWidth < 768) {
+				this.latlng = e.latlng;
 				this.openAddRestaurantForm(this.latlng);
 			}
 		});
@@ -77,8 +73,9 @@ export class RestaurantManager {
 						};
 
 						const newMarker = L.marker([lat, lng], {icon: blueIcon})
-							.bindPopup(createPopupContent(newRestaurant))
 							.addTo(this.map);
+
+						createRestaurantPopupContent(newRestaurant, newMarker);
 
 						this.restaurantMarkers.push(newMarker);
 						this.closeAddRestaurantForm();
