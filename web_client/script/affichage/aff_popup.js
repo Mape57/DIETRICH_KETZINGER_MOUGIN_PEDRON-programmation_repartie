@@ -23,7 +23,7 @@ export const createRestaurantPopupContent = (restaurant, marker) => {
 	});
 }
 
-export function reserveRestaurant(idResto) {
-	alert('Réservation pour le restaurant ' + idResto);
-}
+const restaurant_date_template_html = document.getElementById('restaurant-date_template').innerHTML;
+let restaurant_date_template = Handlebars.compile(restaurant_date_template_html);
+export const createDateSelectionArea = (dateDisplay) => restaurant_date_template(dateDisplay);
 

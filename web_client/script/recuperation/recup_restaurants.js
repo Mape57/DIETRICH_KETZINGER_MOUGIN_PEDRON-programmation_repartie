@@ -10,7 +10,7 @@ export function fetchRestaurantList() {
 		.then(data => {
 			return data.map(station => {
 				const [lat, lon] = station.coordonnees.split(',').map(Number);
-				return { idResto: station.idResto, lat, lon };
+				return {idResto: station.idResto, lat, lon};
 			});
 		})
 		.catch(error => {
@@ -76,14 +76,14 @@ export function fetchRestaurantHours(idResto) {
 
 				const ouvert = horaires.some(([debut, fin]) => heureActuelle >= debut && heureActuelle < fin);
 
-				return { ouvert };
+				return {ouvert};
 			} else {
-				return { ouvert: false };
+				return {ouvert: false};
 			}
 		})
 		.catch(error => {
 			console.error(`Erreur lors de la récupération des horaires du restaurant ${idResto}:`, error);
-			return { ouvert: false };
+			return {ouvert: false};
 		});
 }
 
@@ -113,6 +113,41 @@ export function postRestaurant(nomResto, adr, note, coordonnees) {
 		.then(response => response.json())
 		.catch(error => {
 			console.error('Erreur lors de l\'ajout du restaurant:', error);
+			return null;
+		});
+}
+
+export function fetchReservation(idResto, nbConviv, date) {
+	if (nbConviv <= 0 || !nbConviv || !date) return null;
+
+	return fetch(`${baseURL}/reservation?date=${date}&idResto=${idResto}&nbConviv=${nbConviv}`)
+		.then(response => response.json())
+		.catch(error => {
+			console.error(`Erreur lors de la récupération des horaires du restaurant ${idResto}:`, error);
+			return null;
+		});
+}
+
+export function postReservation(idResto, nbConviv, date, nom, prenom, numTel) {
+	if (nbConviv <= 0 || !nbConviv || !date || !nom || !prenom || !numTel) return null;
+
+	return fetch(`${baseURL}/reservation`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			"idResto": idResto,
+			"nbConviv": nbConviv,
+			"date": date,
+			"nom": nom,
+			"prenom": prenom,
+			"numTel": numTel
+		})
+	})
+		.then(response => response.json())
+		.catch(error => {
+			console.error('Erreur lors de l\'ajout de la réservation:', error);
 			return null;
 		});
 }

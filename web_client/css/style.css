@@ -47,16 +47,43 @@
 	margin: 0 1.5rem .5rem;
 }
 
-.popup-display > .popup-restaurant-input {
+.popup-restaurant-input {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 
-.popup-display > .popup-restaurant-input > input {
+.popup-restaurant-input > input {
+	flex-grow: 1;
 	background-color: transparent;
 	border: none;
 	border-bottom: 2px solid black;
 	outline: none;
+}
+
+.popup-restaurant-input > button, #reservation-date > button {
+	background-color: transparent;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	transition-duration: .2s;
+}
+
+.popup-restaurant-input > label {
+	flex-basis: 100%;
+}
+
+.popup-restaurant-input > button:hover, #reservation-date > button:hover, #reservation-date > button.selected {
+	filter: drop-shadow(0 0 5px rgba(0, 0, 0, .3));
+	scale: 1.1;
+}
+
+.popup-restaurant-input > button:active, #reservation-date > button:active {
+	scale: .98;
+}
+
+#reservation-date > button.selected {
+	font-weight: bold;
 }
 
 .popup-display > .popup-restaurant-button {
@@ -129,6 +156,29 @@
 .popup-display > input:checked ~ #horaires {
 	max-height: 500px;
 }
+
+/* Reservation */
+#reservation-date {
+	padding: 1rem 0;
+	display: grid;
+	grid-template-columns: auto repeat(4, 1fr) auto;
+}
+
+#reservation-date > p {
+	margin: 0;
+	text-align: center;
+}
+
+#reservation-restaurant {
+	max-height: 0;
+	overflow: hidden;
+	transition-duration: .2s;
+}
+
+#reservation-restaurant > .popup-restaurant-input {
+	margin-bottom: .5rem;
+}
+
 
 /* Barre de selection de l'affichage*/
 #controls {

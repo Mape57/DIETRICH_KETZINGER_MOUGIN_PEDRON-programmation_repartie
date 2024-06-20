@@ -55,8 +55,9 @@ public class ReservationHandler implements HttpHandler {
 		String prenom = json.getString("prenom");
 		int nbConviv = json.getInt("nbConviv");
 		String numTel = json.getString("numTel");
-		LocalDateTime date = LocalDateTime.parse(json.getString("date"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		LocalDateTime date = LocalDateTime.parse(json.getString("date").replace('T', ' '), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
+		System.out.println("Sending reservation to backend");
 		return ServeurCentral.restaurant.postReservation(idResto, nom, prenom, nbConviv, numTel, date);
 	}
 }

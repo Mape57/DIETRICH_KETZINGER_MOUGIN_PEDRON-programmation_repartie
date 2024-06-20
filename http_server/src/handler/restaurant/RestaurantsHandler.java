@@ -30,20 +30,12 @@ public class RestaurantsHandler implements HttpHandler {
 	}
 
 	private String postRestaurant(String body) throws RemoteException {
-		System.out.println(body);
 		JSONObject json = new JSONObject(body);
-		System.out.println("ok");
 
 		String nomResto = json.getString("nomResto");
 		String adr = json.getString("adr");
 		String coordonnees = json.getString("coordonnees");
 		int note = json.getInt("note");
-
-		System.out.println("=====================================");
-		System.out.println(nomResto);
-		System.out.println(adr);
-		System.out.println(coordonnees);
-		System.out.println(note);
 
 		return ServeurCentral.restaurant.postRestaurant(nomResto, adr, coordonnees, note);
 	}
