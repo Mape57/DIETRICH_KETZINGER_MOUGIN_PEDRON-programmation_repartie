@@ -72,11 +72,58 @@
 				<p>{{jour}} : {{horaire}}</p>
 			{{/each}}
 		</div>
+		<div id="reservation-restaurant">
+			<div class="popup-restaurant-input">
+				<label for="restaurant_nbConviv">Séléctionnez le nombre de convives</label>
+				<input type="number" id="restaurant_nbConviv" name="restaurant_nbConviv" min="1">
+				<button type="button" id="restaurant_validerNbConviv"><i class="fa-solid fa-check"></i></button>
+			</div>
+			<div id="reservation-date"></div>
+			<div class="popup-restaurant-input">
+				<label for="restaurant_nom">Votre nom</label>
+				<input type="text" id="restaurant_nom" name="restaurant_nom">
+			</div>
+			<div class="popup-restaurant-input">
+				<label for="restaurant_prenom">Votre prénom</label>
+				<input type="text" id="restaurant_prenom" name="restaurant_prenom">
+			</div>
+			<div class="popup-restaurant-input">
+				<label for="restaurant_numTel">Votre numéro de téléphone</label>
+				<input type="text" id="restaurant_numTel" name="restaurant_numTel">
+			</div>
+		</div>
 		<div class="popup-restaurant-button">
 			<button id="reserver-restaurant">Reserver</button>
 			<button id="fermer-restaurant">Annuler</button>
 		</div>
 	</div>
+</script>
+<script type="text/x-handlebars-template" id="restaurant-date_template">
+	<button type="button" id="restaurant_date-previous"><i class="fa-solid fa-chevron-left" style="color: #000000;"></i>
+	</button>
+	{{#each jours}}
+		<p>{{ this }}</p>
+	{{/each}}
+	<button type="button" id="restaurant_date-next"><i class="fa-solid fa-chevron-right" style="color: #000000;"></i>
+	</button>
+	{{#each lignes}}
+		<div></div>
+		{{#if blank}}
+			<p>-</p>
+			<p>-</p>
+			<p>-</p>
+			<p>-</p>
+		{{else}}
+			{{#each this}}
+				{{#if this}}
+					<button class="datePicker{{#if selected}} selected{{/if}}" id="{{ id }}">{{ heure }}</button>
+				{{else}}
+					<div></div>
+				{{/if}}
+			{{/each}}
+		{{/if}}
+		<div></div>
+	{{/each}}
 </script>
 <script type="text/x-handlebars-template" id="addRestaurant_template">
 	<div id="addRestaurantForm" class="popup-display">
