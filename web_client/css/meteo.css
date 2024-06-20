@@ -160,7 +160,10 @@ body, html {
 		z-index: 3;
 		flex-direction: column;
 		height: auto;
-		padding-bottom: 2rem;
+	}
+
+	#meteo_week.show {
+		bottom: 3.5rem;
 	}
 
 	#meteo_week > #today {
