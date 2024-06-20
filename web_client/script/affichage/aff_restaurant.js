@@ -129,12 +129,12 @@ function displayDateSelectionArea(details) {
 
 	document.getElementById('restaurant_date-previous').addEventListener('click', async () => {
 		await previousDateValue(details);
-		displayDateSelectionArea(details);
+		displayDateAndAnimate(details);
 	});
 
 	document.getElementById('restaurant_date-next').addEventListener('click', async () => {
 		await nextDateValue(details);
-		displayDateSelectionArea(details);
+		displayDateAndAnimate(details);
 	});
 
 	document.querySelectorAll('#reservation-date > .datePicker').forEach((el) => {
@@ -151,6 +151,17 @@ function displayDateSelectionArea(details) {
 			e.target.classList.toggle('selected');
 		});
 	});
+}
+
+function displayDateAndAnimate(details) {
+	displayDateSelectionArea(details);
+
+	let res = document.getElementById('reservation-restaurant');
+	if (!selectedDate) {
+		res.style.maxHeight = (res.firstElementChild.clientHeight + res.children[1].clientHeight) + "px";
+	} else {
+		res.style.maxHeight = res.clientHeight + "px";
+	}
 }
 
 function addValue(result, val) {
