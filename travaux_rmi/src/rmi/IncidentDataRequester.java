@@ -7,10 +7,10 @@ import java.io.IOException;
 
 public class IncidentDataRequester implements IncidentDataRequesterInterface {
 	@Override
-	public String getData() {
+	public String getData(String urlStr) {
 		try {
 			System.out.println("Tentative d'obtention avec un fetch.");
-			String data = new FetchingMethod().getData().toString();
+			String data = new FetchingMethod().getData(urlStr).toString();
 			System.out.println("La methode fetch a reussi.");
 			return data;
 		} catch (IOException ex) {
@@ -19,7 +19,7 @@ public class IncidentDataRequester implements IncidentDataRequesterInterface {
 
 		try {
 			System.out.println("Tentative d'obtention via le proxy.");
-			String data = new ProxyMethod().getData().toString();
+			String data = new ProxyMethod().getData(urlStr).toString();
 			System.out.println("La methode proxy a reussi.");
 			return data;
 		} catch (IOException e) {

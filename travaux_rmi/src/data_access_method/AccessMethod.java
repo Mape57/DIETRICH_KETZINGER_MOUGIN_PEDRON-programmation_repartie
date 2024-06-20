@@ -5,5 +5,5 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public interface AccessMethod {
-	JSONObject getData() throws IOException;
+	JSONObject getData(String url) throws IOException;
 }

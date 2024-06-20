@@ -3,7 +3,7 @@
 import {baseURL} from "../tools/config";
 
 export async function fetchIncidentData() {
-    return fetch(`${baseURL}/travaux`)
+    return fetch(`${baseURL}/travaux?url=https://carto.g-ny.org/data/cifs/cifs_waze_v2.json`)
         .then(response => response.json())
         .then(data => {
             return data.incidents.map(incident => {

@@ -11,8 +11,8 @@ import java.net.URLConnection;
 
 public class FetchingMethod implements AccessMethod {
 	@Override
-	public JSONObject getData() throws IOException {
-		URL url = new URL("https://carto.g-ny.org/data/cifs/cifs_waze_v2.json");
+	public JSONObject getData(String urlStr) throws IOException {
+		URL url = new URL(urlStr);
 
 		// se connecte à l'URL et récupère les données
 		URLConnection con = url.openConnection();
